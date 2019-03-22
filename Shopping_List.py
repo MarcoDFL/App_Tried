@@ -14,6 +14,7 @@ def greeting():
     menu()
 
 
+# Presents the user with their option of functions
 def menu():
     choice = None
     while choice is None:
@@ -33,7 +34,9 @@ def menu():
     elif choice == 3:
         print("")
         choice_three()
+    # if options do not match the above, User gets an warning message letting them know if the lack of implementation
     else:
+        # Sets the area red until stopped by line 44
         print(Fore.RED)
         print("======================================")
         print('Warning: Function not implemented yet!')
@@ -63,21 +66,22 @@ def shopping_list():
 
     print("Your Shopping List: ")
     print(shopping_list_one)  # Prints Shopping List
-    outf = open("test.txt", "a")
-
+    item_print = open("test.txt", "a")
+    # adds spaces after every item
     for line in shopping_list_one:
-        outf.write(line)
-        outf.write("\n")
-    outf.close()
+        item_print.write(line)
+        item_print.write("\n")
+    item_print.close()
 
 
+# Opens the file on read and prints the file
 def choice_two():
     f = open('test.txt', 'r')
-    message = f.read()
-    print(message)
+    print(f.read())
     f.close()
 
 
+# Functions to remove an item from the shopping list
 def choice_three():
     f = open('test.txt', 'r')
     print(f.read())

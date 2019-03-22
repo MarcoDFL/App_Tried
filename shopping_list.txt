@@ -1,0 +1,8 @@
+(lp0
+S'Bacon'
+p1
+aS'Orange'
+p2
+aS'TV'
+p3
+a.

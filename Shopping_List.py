@@ -28,6 +28,7 @@ def menu():
         print("")
         choice = int(input("What would you like to do?: "))
         print(Style.RESET_ALL)
+
     if choice == 1:
         print("")
         shopping_list()
@@ -56,7 +57,7 @@ def shopping_list():
     item = input("Please enter your first item: ")  # Asks user for their first item
     shopping_list_one.append(item)  # Adds item into the shopping list
     print("")
-    print(Back.GREEN)
+    print(Fore.WHITE + Back.GREEN)
     print(item + " has been added to your Shopping List.")  # informs user their item has been added to the lists
     print(Style.RESET_ALL)
     print("")
@@ -64,7 +65,7 @@ def shopping_list():
         item = input("Enter your next item: ")  # Asks user for their next item
         shopping_list_one.append(item)  # Adds item to the list
         print("")  # Whitespace
-        print(Back.GREEN)
+        print(Fore.WHITE + Back.GREEN)
         print(item + " has been added to your Shopping List.")  # informs user their item has been added to the lists
         print(Style.RESET_ALL)
         print("")  # Whitespace
@@ -85,7 +86,7 @@ def shopping_list():
 # Opens the file on read and prints the file
 def choice_two():
     if os.stat("test.txt").st_size == 0:
-        print(Fore.RED)
+        print(Fore.WHITE + Back.RED)
         print("Shopping List is empty!")
         print(Style.RESET_ALL)
         exit()
@@ -97,25 +98,31 @@ def choice_two():
 
 # Functions to remove an item from the shopping list
 def choice_three():
+
     f = open('test.txt', 'r')
     if os.stat("test.txt").st_size == 0:
-        print(Fore.RED)
+        print(Fore.WHITE + Back.RED)
         print("Shopping List is empty!")
         print(Style.RESET_ALL)
-        exit()
+        greeting()
     else:
         print(f.read())
         f.close()
         remove: str = input("Which item would you like to remove?: ")
+        if remove != "done":
+            with open("test.txt", "r") as f:
+                lines = f.readlines()
 
-    with open("test.txt", "r") as f:
-        lines = f.readlines()
-
-        with open("test.txt", "w") as f:
-            for line in lines:
-                if line.rstrip("\n") != remove:
-                    f.write(line)
-            print(remove + " has been removed from your shopping list!")
+                with open("test.txt", "w") as f:
+                    for line in lines:
+                        if line.rstrip("\n") != remove:
+                            f.write(line)
+                    print(Fore.WHITE + Back.GREEN)
+                    print(remove + " has been removed from your shopping list!")
+                    print(Style.RESET_ALL)
+                    greeting()
+        else:
+            greeting()
 
 
 greeting()  # Calls function "greeting"

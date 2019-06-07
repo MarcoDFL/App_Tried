@@ -14,30 +14,54 @@ public class binaryToDenary {
 	}
 	
 	public static void main(String[] args) {
-		String binary = "";
 		Scanner scanner = new Scanner(System.in);
-		System.out.print("Input:");
-		int ourNum = scanner.nextInt();
-		int num2 = test(ourNum);
-				
-		while(ourNum != 0) {
-			if(ourNum == 0 || num2 == 0) {
-				break;
+		System.out.println("Denary2Binary & Binary2Denary Converter");
+		System.out.println(" ");
+		System.out.println("1. Denary to Binary");
+		System.out.println("2. Binary to Denary");
+		System.out.println("");
+		System.out.print("Select an option: ");
+		int option = scanner.nextInt();
+		
+		switch(option) {
+		
+		case 1:
+			System.out.print("Input:");
+			int ourNum = scanner.nextInt();
+			int num2 = test(ourNum);
+			String binary = "";
+			
+			while(ourNum != 0) {
+				if(ourNum == 0 || num2 == 0) {
+					break;
+				}
+				if(ourNum >= num2) {
+					ourNum = ourNum-num2;
+					binary+="1";
+					num2 = num2/2;
+				}
+				if(ourNum < num2) {
+					binary+="0";
+					num2=num2/2;
+				}
 			}
-			if(ourNum >= num2) {
-				ourNum = ourNum-num2;
-				binary+="1";
-				num2 = num2/2;
-			}
-			if(ourNum < num2) {
+			while(num2 > 0 ) {
 				binary+="0";
-				num2=num2/2;
+				num2 = num2/2;	
 			}
-		}
-		while(num2 > 0 ) {
-			binary+="0";
-			num2 = num2/2;	
-		}
-		System.out.println("Binary: "+binary);
-	}
+			System.out.println("Binary: "+binary);
+		
+		case 2:
+			System.out.print("Input:");
+			long ourBinary = scanner.nextLong();
+	    	long reverse = 0;
+
+
+		      
+		      
+		      
+		      			
+			
+		}	
+	}		
 }

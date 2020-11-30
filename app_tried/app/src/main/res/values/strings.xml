@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Tried</string>
+    <string name="scan_barcode">Scan Barcode</string>
+    <string name="ID">ID</string>
+    <string name="product_name">Product Name</string>
+    <string name="submit">Submit</string>
+    <string name="edit">edit</string>
+    <string name="show_id">Show ID</string>
+    <string name="close">close</string>
+    <string name="search">search</string>
+</resources>

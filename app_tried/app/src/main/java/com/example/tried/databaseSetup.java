@@ -123,22 +123,25 @@ public class databaseSetup extends SQLiteOpenHelper {
         @SuppressLint("Recycle") Cursor dbCursor = db.query(TABLE_PRODUCTS, null,
                 null, null, null, null, null);
 
+        try {
+            ArrayList<String> productCodes = new ArrayList<>();
+            ArrayList<String> productName = new ArrayList<>();
 
-        ArrayList<String> productCodes = new ArrayList<>();
-        ArrayList<String> productName = new ArrayList<>();
+            dbCursor.moveToFirst();
+            while (!dbCursor.isAfterLast()) {
+                productName.add(dbCursor.getString(dbCursor.getColumnIndex(COLUMN_NAME)));
+                productCodes.add(dbCursor.getString(dbCursor.getColumnIndex(COLUMN_CODE)));
+                dbCursor.moveToNext();
 
-        dbCursor.moveToFirst();
-        while (!dbCursor.isAfterLast()) {
-            productName.add(dbCursor.getString(dbCursor.getColumnIndex(COLUMN_NAME)));
-            productCodes.add(dbCursor.getString(dbCursor.getColumnIndex(COLUMN_CODE)));
-            dbCursor.moveToNext();
+            }
 
+            int testTest = productCodes.indexOf(productCode);
+            db.close();
+            return productName.get(testTest);
+        } catch (Exception e) {
+            System.err.println("Doesn't exist");
+            return null;
         }
-
-        int testTest = productCodes.indexOf(productCode);
-        db.close();
-        return productName.get(testTest);
-
     }
 
     public static float getProductRating(String productCode) {
@@ -147,23 +150,26 @@ public class databaseSetup extends SQLiteOpenHelper {
 
         @SuppressLint("Recycle") Cursor dbCursor = db.query(TABLE_PRODUCTS, null,
                 null, null, null, null, null);
+        try {
+            ArrayList<String> productCodes = new ArrayList<>();
+            ArrayList<Float> productRatings = new ArrayList<>();
 
-        ArrayList<String> productCodes = new ArrayList<>();
-        ArrayList<Float> productRatings = new ArrayList<>();
+            dbCursor.moveToFirst();
+            while (!dbCursor.isAfterLast()) {
+                productCodes.add(dbCursor.getString(dbCursor.getColumnIndex(COLUMN_CODE)));
+                productRatings.add((dbCursor.getFloat(dbCursor.getColumnIndex(COLUMN_RATING))));
+                dbCursor.moveToNext();
 
-        dbCursor.moveToFirst();
-        while (!dbCursor.isAfterLast()) {
-            productCodes.add(dbCursor.getString(dbCursor.getColumnIndex(COLUMN_CODE)));
-            productRatings.add((dbCursor.getFloat(dbCursor.getColumnIndex(COLUMN_RATING))));
-            dbCursor.moveToNext();
+            }
 
+            int testTest = productCodes.indexOf(productCode);
+            db.close();
+
+            return productRatings.get(testTest);
+        } catch (Exception e) {
+            System.err.println("Something wrong");
+            return 0;
         }
-
-        int testTest = productCodes.indexOf(productCode);
-        db.close();
-
-        return productRatings.get(testTest);
-
 
     }
 
@@ -171,28 +177,31 @@ public class databaseSetup extends SQLiteOpenHelper {
         SQLiteDatabase db = instance.getReadableDatabase();
         @SuppressLint("Recycle") Cursor dbCursor = db.query(TABLE_PRODUCTS, null,
                 null, null, null, null, null);
+        try {
+            ArrayList<String> productNames = new ArrayList<>();
+            ArrayList<String> productCodes = new ArrayList<>();
 
-        ArrayList<String> productNames = new ArrayList<>();
-        ArrayList<String> productCodes = new ArrayList<>();
+            dbCursor.moveToFirst();
+            while (!dbCursor.isAfterLast()) {
+                productCodes.add(dbCursor.getString(dbCursor.getColumnIndex(COLUMN_CODE)));
+                productNames.add((dbCursor.getString(dbCursor.getColumnIndex(COLUMN_NAME))));
+                dbCursor.moveToNext();
 
-        dbCursor.moveToFirst();
-        while (!dbCursor.isAfterLast()) {
-            productCodes.add(dbCursor.getString(dbCursor.getColumnIndex(COLUMN_CODE)));
-            productNames.add((dbCursor.getString(dbCursor.getColumnIndex(COLUMN_NAME))));
-            dbCursor.moveToNext();
+            }
+            int testTest = productNames.indexOf(itemName);
+            db.close();
 
+            return productCodes.get(testTest);
+        } catch (Exception e) {
+            System.err.println("Doesn't exist");
+            return null;
         }
-        int testTest = productCodes.indexOf(itemName);
-        db.close();
-
-        return productNames.get(testTest);
-
     }
 
 
     public static ArrayList<String> getAllProductNames() {
 
-        SQLiteDatabase db = instance.getWritableDatabase();
+        SQLiteDatabase db = instance.getReadableDatabase();
 
         @SuppressLint("Recycle") Cursor dbCursor = db.query(TABLE_PRODUCTS, null,
                 null, null, null, null, null);

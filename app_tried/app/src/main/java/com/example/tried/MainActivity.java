@@ -5,8 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import androidx.appcompat.widget.Toolbar;
-
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,13 +13,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-
 import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.MenuItemCompat;
@@ -31,10 +29,8 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private final int CAMERA_PERMISSION_CODE = 1;
-    Button button;
-    ListView itemView;
-    ArrayList<String> items = new ArrayList<>();
-    ArrayAdapter adapter;
+    private ListView itemView;
+    public ArrayList<String> items = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar myToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
 
-        button = findViewById(R.id.closeButton);
+        Button button = findViewById(R.id.closeButton);
         itemView = findViewById(R.id.itemListView);
         setData();
 
@@ -54,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
                 if (ContextCompat.checkSelfPermission(MainActivity.this,
                         Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
                     startActivity(new Intent(getApplicationContext(), codeScanActivity.class));
-                    MainActivity.this.finish();
                 } else {
                     requestCameraPermission();
                 }
@@ -69,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
 
                 databaseSetup.setProductCode(code);
                 startActivity(new Intent(getApplicationContext(), viewProduct.class));
-                MainActivity.this.finish();
 
 
             }
@@ -142,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
 
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this,
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this,
                         android.R.layout.simple_list_item_1, itemsList);
                 itemView.setAdapter(adapter);
 
@@ -151,12 +145,12 @@ public class MainActivity extends AppCompatActivity {
         });
         return false;
     }
-    public void setData(){
+
+    private void setData() {
         try {
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, databaseSetup.getAllProductNames());
+            ArrayAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, databaseSetup.getAllProductNames());
             itemView.setAdapter(adapter);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

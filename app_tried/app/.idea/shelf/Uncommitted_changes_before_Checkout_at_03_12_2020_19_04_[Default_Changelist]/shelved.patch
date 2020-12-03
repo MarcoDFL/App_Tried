@@ -1,0 +1,218 @@
+Index: src/main/java/com/example/tried/databaseSetup.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.tried;\r\n\r\nimport android.annotation.SuppressLint;\r\nimport android.content.ContentValues;\r\nimport android.content.Context;\r\nimport android.database.Cursor;\r\nimport android.database.sqlite.SQLiteDatabase;\r\nimport android.database.sqlite.SQLiteOpenHelper;\r\n\r\nimport java.util.ArrayList;\r\n\r\n\r\n@SuppressWarnings(\"SameReturnValue\")\r\npublic class databaseSetup extends SQLiteOpenHelper {\r\n\r\n    @SuppressLint(\"StaticFieldLeak\")\r\n    private static databaseSetup instance;\r\n    private static String productCode;\r\n\r\n    private static final int DATABASE_VER = 1;\r\n    private static final String DATABASE_NAME = \"productDB.db\";\r\n\r\n    private static final String TABLE_PRODUCTS = \"TABLE_PRODUCTS\";\r\n\r\n    private static final String COLUMN_CODE = \"CODE\";\r\n\r\n    private static final String COLUMN_NAME = \"NAME\";\r\n\r\n    private static final String COLUMN_RATING = \"RATING\";\r\n\r\n    private static final String SQL_CREATE_TABLE_QUERY = \"CREATE TABLE \" + TABLE_PRODUCTS +\r\n            \" (\" + COLUMN_CODE + \" TEXT PRIMARY KEY, \" + \" \" + COLUMN_NAME + \" TEXT, \" + COLUMN_RATING + \" TEXT)\";\r\n\r\n    private static final String SQL_DELETE_TABLE_QUERY =\r\n            \"DROP TABLE IF EXISTS \" + TABLE_PRODUCTS;\r\n\r\n\r\n    private databaseSetup(Context context) {\r\n        super(context, DATABASE_NAME, null, DATABASE_VER);\r\n    }\r\n\r\n\r\n    static public synchronized databaseSetup getInstance(Context context) {\r\n\r\n        if (instance == null)\r\n            instance = new databaseSetup(context);\r\n        return instance;\r\n    }\r\n\r\n    @Override\r\n    public void onCreate(SQLiteDatabase SQLiteDatabase) {\r\n        SQLiteDatabase.execSQL(SQL_CREATE_TABLE_QUERY);\r\n    }\r\n\r\n    @Override\r\n    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {\r\n        db.execSQL(SQL_DELETE_TABLE_QUERY);\r\n        onCreate(db);\r\n    }\r\n\r\n    public static void insertNewProduct(String productCode, String productName, float productRating) {\r\n        SQLiteDatabase db = instance.getWritableDatabase();\r\n\r\n        ContentValues values = new ContentValues();\r\n\r\n        if (!getAllProducts().contains(productCode)) {\r\n            values.put(COLUMN_CODE, productCode);\r\n            values.put(COLUMN_NAME, productName);\r\n            values.put(COLUMN_RATING, productRating);\r\n            db.insert(TABLE_PRODUCTS, null, values);\r\n\r\n\r\n        }\r\n    }\r\n\r\n    @SuppressWarnings(\"SameReturnValue\")\r\n    public static boolean editProduct(String productCode, String productName, float productRating) {\r\n        SQLiteDatabase db = instance.getWritableDatabase();\r\n\r\n        ContentValues values = new ContentValues();\r\n\r\n        values.put(COLUMN_CODE, productCode);\r\n        values.put(COLUMN_NAME, productName);\r\n        values.put(COLUMN_RATING, productRating);\r\n        db.update(TABLE_PRODUCTS, values, \"CODE = ?\", new String[]{productCode});\r\n\r\n\r\n        return true;\r\n\r\n    }\r\n\r\n\r\n    public static void setProductCode(String productCode) {\r\n        databaseSetup.productCode = productCode;\r\n    }\r\n\r\n    public static String getProductCode() {\r\n        return productCode;\r\n    }\r\n\r\n    public static ArrayList<String> getAllProducts() {\r\n        SQLiteDatabase db = instance.getWritableDatabase();\r\n\r\n        @SuppressLint(\"Recycle\") Cursor dbCursor = db.query(TABLE_PRODUCTS, null,\r\n                null, null, null, null, null);\r\n\r\n        ArrayList<String> productID = new ArrayList<>();\r\n\r\n        dbCursor.moveToFirst();\r\n        while (!dbCursor.isAfterLast()) {\r\n            productID.add(dbCursor.getString(dbCursor.getColumnIndex(COLUMN_CODE)));\r\n            dbCursor.moveToNext();\r\n\r\n        }\r\n        return productID;\r\n    }\r\n\r\n    public static String getProductName(String productCode) {\r\n\r\n        SQLiteDatabase db = instance.getWritableDatabase();\r\n\r\n\r\n        @SuppressLint(\"Recycle\") Cursor dbCursor = db.query(TABLE_PRODUCTS, null,\r\n                null, null, null, null, null);\r\n\r\n\r\n        ArrayList<String> productCodes = new ArrayList<>();\r\n        ArrayList<String> productName = new ArrayList<>();\r\n\r\n        dbCursor.moveToFirst();\r\n        while (!dbCursor.isAfterLast()) {\r\n            productName.add(dbCursor.getString(dbCursor.getColumnIndex(COLUMN_NAME)));\r\n            productCodes.add(dbCursor.getString(dbCursor.getColumnIndex(COLUMN_CODE)));\r\n            dbCursor.moveToNext();\r\n\r\n        }\r\n\r\n        int testTest = productCodes.indexOf(productCode);\r\n        db.close();\r\n        return productName.get(testTest);\r\n\r\n    }\r\n\r\n    public static float getProductRating(String productCode) {\r\n\r\n        SQLiteDatabase db = instance.getWritableDatabase();\r\n\r\n        @SuppressLint(\"Recycle\") Cursor dbCursor = db.query(TABLE_PRODUCTS, null,\r\n                null, null, null, null, null);\r\n\r\n        ArrayList<String> productCodes = new ArrayList<>();\r\n        ArrayList<Float> productRatings = new ArrayList<>();\r\n\r\n        dbCursor.moveToFirst();\r\n        while (!dbCursor.isAfterLast()) {\r\n            productCodes.add(dbCursor.getString(dbCursor.getColumnIndex(COLUMN_CODE)));\r\n            productRatings.add((dbCursor.getFloat(dbCursor.getColumnIndex(COLUMN_RATING))));\r\n            dbCursor.moveToNext();\r\n\r\n        }\r\n\r\n        int testTest = productCodes.indexOf(productCode);\r\n        db.close();\r\n\r\n        return productRatings.get(testTest);\r\n\r\n\r\n    }\r\n\r\n    public static String getCodeFromName(String itemName) {\r\n        SQLiteDatabase db = instance.getReadableDatabase();\r\n        @SuppressLint(\"Recycle\") Cursor dbCursor = db.query(TABLE_PRODUCTS, null,\r\n                null, null, null, null, null);\r\n\r\n        ArrayList<String> productNames = new ArrayList<>();\r\n        ArrayList<String> productCodes = new ArrayList<>();\r\n\r\n        dbCursor.moveToFirst();\r\n        while (!dbCursor.isAfterLast()) {\r\n            productCodes.add(dbCursor.getString(dbCursor.getColumnIndex(COLUMN_CODE)));\r\n            productNames.add((dbCursor.getString(dbCursor.getColumnIndex(COLUMN_NAME))));\r\n            dbCursor.moveToNext();\r\n\r\n        }\r\n        int testTest = productCodes.indexOf(itemName);\r\n        db.close();\r\n\r\n        return productNames.get(testTest);\r\n\r\n    }\r\n\r\n\r\n    public static ArrayList<String> getAllProductNames() {\r\n\r\n        SQLiteDatabase db = instance.getWritableDatabase();\r\n\r\n        @SuppressLint(\"Recycle\") Cursor dbCursor = db.query(TABLE_PRODUCTS, null,\r\n                null, null, null, null, null);\r\n\r\n        ArrayList<String> productNames = new ArrayList<>();\r\n\r\n        dbCursor.moveToFirst();\r\n        while (!dbCursor.isAfterLast()) {\r\n            productNames.add(dbCursor.getString(dbCursor.getColumnIndex(COLUMN_NAME)));\r\n            dbCursor.moveToNext();\r\n        }\r\n        return productNames;\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/com/example/tried/databaseSetup.java	(revision 1f8e00576448c76ceb8720c9c147f936dc4b9fea)
++++ src/main/java/com/example/tried/databaseSetup.java	(date 1607022166936)
+@@ -182,7 +182,7 @@
+             dbCursor.moveToNext();
+ 
+         }
+-        int testTest = productCodes.indexOf(itemName);
++        int testTest = productNames.indexOf(itemName);
+         db.close();
+ 
+         return productNames.get(testTest);
+Index: .idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"GradleMigrationSettings\" migrationVersion=\"1\" />\r\n  <component name=\"GradleSettings\">\r\n    <option name=\"linkedExternalProjectsSettings\">\r\n      <GradleProjectSettings>\r\n        <option name=\"testRunner\" value=\"PLATFORM\" />\r\n        <option name=\"distributionType\" value=\"DEFAULT_WRAPPED\" />\r\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\r\n        <option name=\"modules\">\r\n          <set>\r\n            <option value=\"$PROJECT_DIR$/..\" />\r\n            <option value=\"$PROJECT_DIR$\" />\r\n          </set>\r\n        </option>\r\n        <option name=\"resolveModulePerSourceSet\" value=\"false\" />\r\n      </GradleProjectSettings>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/gradle.xml	(revision 1f8e00576448c76ceb8720c9c147f936dc4b9fea)
++++ .idea/gradle.xml	(date 1607021941118)
+@@ -14,6 +14,7 @@
+           </set>
+         </option>
+         <option name="resolveModulePerSourceSet" value="false" />
++        <option name="useQualifiedModuleNames" value="true" />
+       </GradleProjectSettings>
+     </option>
+   </component>
+Index: .idea/libraries/Gradle__me_dm7_barcodescanner_core_1_9_aar.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><component name=\"libraryTable\">\r\n  <library name=\"Gradle: me.dm7.barcodescanner:core:1.9@aar\">\r\n    <CLASSES>\r\n      <root url=\"file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e037064eb9776a5f6436a7d532af65f5/jetified-core-1.9/AndroidManifest.xml\" />\r\n      <root url=\"jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e037064eb9776a5f6436a7d532af65f5/jetified-core-1.9/jars/classes.jar!/\" />\r\n      <root url=\"file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e037064eb9776a5f6436a7d532af65f5/jetified-core-1.9/res\" />\r\n    </CLASSES>\r\n    <JAVADOC />\r\n    <SOURCES />\r\n  </library>\r\n</component>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/libraries/Gradle__me_dm7_barcodescanner_core_1_9_aar.xml	(revision 1f8e00576448c76ceb8720c9c147f936dc4b9fea)
++++ .idea/libraries/Gradle__me_dm7_barcodescanner_core_1_9_aar.xml	(date 1607022011648)
+@@ -4,6 +4,9 @@
+       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e037064eb9776a5f6436a7d532af65f5/jetified-core-1.9/AndroidManifest.xml" />
+       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e037064eb9776a5f6436a7d532af65f5/jetified-core-1.9/jars/classes.jar!/" />
+       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e037064eb9776a5f6436a7d532af65f5/jetified-core-1.9/res" />
++      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/02b15da377fa787c24f261d9cfac6784/jetified-core-1.9/res" />
++      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/02b15da377fa787c24f261d9cfac6784/jetified-core-1.9/AndroidManifest.xml" />
++      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/02b15da377fa787c24f261d9cfac6784/jetified-core-1.9/jars/classes.jar!/" />
+     </CLASSES>
+     <JAVADOC />
+     <SOURCES />
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_1_7\" project-jdk-name=\"1.8\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/build/classes\" />\r\n  </component>\r\n  <component name=\"ProjectType\">\r\n    <option name=\"id\" value=\"Android\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/misc.xml	(revision 1f8e00576448c76ceb8720c9c147f936dc4b9fea)
++++ .idea/misc.xml	(date 1607022000039)
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" project-jdk-name="1.8" project-jdk-type="JavaSDK">
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/build/classes" />
+   </component>
+   <component name="ProjectType">
+Index: .idea/modules.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ProjectModuleManager\">\r\n    <modules>\r\n      <module fileurl=\"file://$PROJECT_DIR$/.idea/modules/-133928333/Tried.iml\" filepath=\"$PROJECT_DIR$/.idea/modules/-133928333/Tried.iml\" group=\"Tried\" />\r\n      <module fileurl=\"file://$PROJECT_DIR$/app.iml\" filepath=\"$PROJECT_DIR$/app.iml\" group=\"Tried/app\" />\r\n    </modules>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/modules.xml	(revision 1f8e00576448c76ceb8720c9c147f936dc4b9fea)
++++ .idea/modules.xml	(date 1607022011572)
+@@ -2,8 +2,8 @@
+ <project version="4">
+   <component name="ProjectModuleManager">
+     <modules>
+-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-133928333/Tried.iml" filepath="$PROJECT_DIR$/.idea/modules/-133928333/Tried.iml" group="Tried" />
+-      <module fileurl="file://$PROJECT_DIR$/app.iml" filepath="$PROJECT_DIR$/app.iml" group="Tried/app" />
++      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-133928333/Tried.iml" filepath="$PROJECT_DIR$/.idea/modules/-133928333/Tried.iml" />
++      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Tried.app.iml" filepath="$PROJECT_DIR$/.idea/modules/Tried.app.iml" />
+     </modules>
+   </component>
+ </project>
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AnalysisUIOptions\">\r\n    <option name=\"GROUP_BY_SEVERITY\" value=\"true\" />\r\n  </component>\r\n  <component name=\"AndroidLayouts\">\r\n    <shared>\r\n      <config />\r\n    </shared>\r\n  </component>\r\n  <component name=\"AndroidLogFilters\">\r\n    <option name=\"TOOL_WINDOW_LOG_LEVEL\" value=\"error\" />\r\n    <option name=\"TOOL_WINDOW_CONFIGURED_FILTER\" value=\"Show only selected application\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"0dec2872-ef5e-49c9-b011-a5ae1204bc5e\" name=\"Default Changelist\" comment=\"\" />\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"ExecutionTargetManager\" SELECTED_TARGET=\"Pixel_2_API_29\" />\r\n  <component name=\"ExternalProjectsData\">\r\n    <projectState path=\"$PROJECT_DIR$\">\r\n      <ProjectState />\r\n    </projectState>\r\n  </component>\r\n  <component name=\"ExternalProjectsManager\">\r\n    <system id=\"GRADLE\">\r\n      <state>\r\n        <projects_view>\r\n          <tree_state>\r\n            <expand />\r\n            <select />\r\n          </tree_state>\r\n        </projects_view>\r\n      </state>\r\n    </system>\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"resourceFile\" />\r\n        <option value=\"Class\" />\r\n        <option value=\"layoutResourceFile\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"1iARISla4wl1dTXA8AjeC1snId3\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showExcludedFiles\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"DeviceAndSnapshotComboBoxAction.selectedDevice\" value=\"e497863c\" />\r\n    <property name=\"DeviceAndSnapshotComboBoxAction.selectionTime\" value=\"2020-09-29T03:22:49.057Z\" />\r\n    <property name=\"RunOnceActivity.ShowReadmeOnStart\" value=\"true\" />\r\n    <property name=\"android.recentlyUsedThemes\" value=\"android:Theme.Material\" />\r\n    <property name=\"android.sdk.path\" value=\"$USER_HOME$/AppData/Local/Android/Sdk\" />\r\n    <property name=\"last_opened_file_path\" value=\"$USER_HOME$/Desktop\" />\r\n    <property name=\"project.structure.last.edited\" value=\"Project\" />\r\n    <property name=\"project.structure.proportion\" value=\"0.17\" />\r\n    <property name=\"project.structure.side.proportion\" value=\"0.0\" />\r\n    <property name=\"run.code.analysis.last.selected.profile\" value=\"pProject Default\" />\r\n  </component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"android.template.628215985\">\r\n      <recent name=\"com.example.tried\" />\r\n    </key>\r\n    <key name=\"CopyClassDialog.RECENTS_KEY\">\r\n      <recent name=\"com.example.tried\" />\r\n    </key>\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\marco\\Desktop\\tried\\app\\src\\main\\res\\layout\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\">\r\n    <configuration default=\"true\" type=\"AndroidJUnit\" factoryName=\"Android JUnit\">\r\n      <option name=\"TEST_OBJECT\" value=\"class\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"$MODULE_DIR$\" />\r\n      <method v=\"2\">\r\n        <option name=\"Android.Gradle.BeforeRunTask\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"app\" type=\"AndroidRunConfigurationType\" factoryName=\"Android App\" activateToolWindowBeforeRun=\"false\">\r\n      <module name=\"app\" />\r\n      <option name=\"DEPLOY\" value=\"true\" />\r\n      <option name=\"DEPLOY_APK_FROM_BUNDLE\" value=\"false\" />\r\n      <option name=\"DEPLOY_AS_INSTANT\" value=\"false\" />\r\n      <option name=\"ARTIFACT_NAME\" value=\"\" />\r\n      <option name=\"PM_INSTALL_OPTIONS\" value=\"\" />\r\n      <option name=\"DYNAMIC_FEATURES_DISABLED_LIST\" value=\"\" />\r\n      <option name=\"ACTIVITY_EXTRA_FLAGS\" value=\"\" />\r\n      <option name=\"MODE\" value=\"default_activity\" />\r\n      <option name=\"CLEAR_LOGCAT\" value=\"false\" />\r\n      <option name=\"SHOW_LOGCAT_AUTOMATICALLY\" value=\"false\" />\r\n      <option name=\"SKIP_NOOP_APK_INSTALLATIONS\" value=\"true\" />\r\n      <option name=\"FORCE_STOP_RUNNING_APP\" value=\"true\" />\r\n      <option name=\"TARGET_SELECTION_MODE\" value=\"DEVICE_AND_SNAPSHOT_COMBO_BOX\" />\r\n      <option name=\"SELECTED_CLOUD_MATRIX_CONFIGURATION_ID\" value=\"-1\" />\r\n      <option name=\"SELECTED_CLOUD_MATRIX_PROJECT_ID\" value=\"\" />\r\n      <option name=\"DEBUGGER_TYPE\" value=\"Auto\" />\r\n      <Auto>\r\n        <option name=\"USE_JAVA_AWARE_DEBUGGER\" value=\"false\" />\r\n        <option name=\"SHOW_STATIC_VARS\" value=\"true\" />\r\n        <option name=\"WORKING_DIR\" value=\"\" />\r\n        <option name=\"TARGET_LOGGING_CHANNELS\" value=\"lldb process:gdb-remote packets\" />\r\n        <option name=\"SHOW_OPTIMIZED_WARNING\" value=\"true\" />\r\n      </Auto>\r\n      <Hybrid>\r\n        <option name=\"USE_JAVA_AWARE_DEBUGGER\" value=\"false\" />\r\n        <option name=\"SHOW_STATIC_VARS\" value=\"true\" />\r\n        <option name=\"WORKING_DIR\" value=\"\" />\r\n        <option name=\"TARGET_LOGGING_CHANNELS\" value=\"lldb process:gdb-remote packets\" />\r\n        <option name=\"SHOW_OPTIMIZED_WARNING\" value=\"true\" />\r\n      </Hybrid>\r\n      <Java />\r\n      <Native>\r\n        <option name=\"USE_JAVA_AWARE_DEBUGGER\" value=\"false\" />\r\n        <option name=\"SHOW_STATIC_VARS\" value=\"true\" />\r\n        <option name=\"WORKING_DIR\" value=\"\" />\r\n        <option name=\"TARGET_LOGGING_CHANNELS\" value=\"lldb process:gdb-remote packets\" />\r\n        <option name=\"SHOW_OPTIMIZED_WARNING\" value=\"true\" />\r\n      </Native>\r\n      <Profilers>\r\n        <option name=\"ADVANCED_PROFILING_ENABLED\" value=\"false\" />\r\n        <option name=\"STARTUP_CPU_PROFILING_ENABLED\" value=\"false\" />\r\n        <option name=\"STARTUP_CPU_PROFILING_CONFIGURATION_NAME\" value=\"Sample Java Methods\" />\r\n      </Profilers>\r\n      <option name=\"DEEP_LINK\" value=\"\" />\r\n      <option name=\"ACTIVITY_CLASS\" value=\"\" />\r\n      <method v=\"2\">\r\n        <option name=\"Android.Gradle.BeforeRunTask\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n  </component>\r\n  <component name=\"SvnConfiguration\">\r\n    <configuration />\r\n  </component>\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"0dec2872-ef5e-49c9-b011-a5ae1204bc5e\" name=\"Default Changelist\" comment=\"\" />\r\n      <created>1601348329977</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1601348329977</updated>\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"WindowStateProjectService\">\r\n    <state x=\"477\" y=\"251\" key=\"#PSD\" timestamp=\"1601519024690\">\r\n      <screen x=\"0\" y=\"0\" width=\"1920\" height=\"1040\" />\r\n    </state>\r\n    <state x=\"477\" y=\"251\" key=\"#PSD/0.0.1920.1040@0.0.1920.1040\" timestamp=\"1601519024690\" />\r\n    <state x=\"690\" y=\"274\" key=\"#com.intellij.codeInsight.editorActions.RestoreReferencesDialog\" timestamp=\"1601354219016\">\r\n      <screen x=\"0\" y=\"0\" width=\"1920\" height=\"1040\" />\r\n    </state>\r\n    <state x=\"690\" y=\"274\" key=\"#com.intellij.codeInsight.editorActions.RestoreReferencesDialog/0.0.1920.1040@0.0.1920.1040\" timestamp=\"1601354219016\" />\r\n    <state x=\"604\" y=\"330\" key=\"#com.intellij.fileTypes.FileTypeChooser\" timestamp=\"1601566556621\">\r\n      <screen x=\"0\" y=\"0\" width=\"1920\" height=\"1040\" />\r\n    </state>\r\n    <state x=\"604\" y=\"330\" key=\"#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040\" timestamp=\"1601566556621\" />\r\n    <state x=\"765\" y=\"229\" key=\"#com.intellij.ide.util.MemberChooser\" timestamp=\"1601651324328\">\r\n      <screen x=\"0\" y=\"0\" width=\"1920\" height=\"1040\" />\r\n    </state>\r\n    <state x=\"765\" y=\"229\" key=\"#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040\" timestamp=\"1601651324328\" />\r\n    <state x=\"718\" y=\"372\" key=\"ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1\" timestamp=\"1601650348903\">\r\n      <screen x=\"0\" y=\"0\" width=\"1920\" height=\"1040\" />\r\n    </state>\r\n    <state x=\"718\" y=\"372\" key=\"ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1920.1040@0.0.1920.1040\" timestamp=\"1601650348903\" />\r\n    <state x=\"60\" y=\"278\" key=\"AndroidCreateResourceDirectoryDialog\" timestamp=\"1601722268268\">\r\n      <screen x=\"0\" y=\"0\" width=\"1920\" height=\"1040\" />\r\n    </state>\r\n    <state x=\"60\" y=\"278\" key=\"AndroidCreateResourceDirectoryDialog/0.0.1920.1040@0.0.1920.1040\" timestamp=\"1601722268268\" />\r\n    <state x=\"105\" y=\"338\" key=\"AndroidCreateResourceFileDialog\" timestamp=\"1603814351947\">\r\n      <screen x=\"0\" y=\"0\" width=\"1920\" height=\"1040\" />\r\n    </state>\r\n    <state x=\"105\" y=\"338\" key=\"AndroidCreateResourceFileDialog/0.0.1920.1040@0.0.1920.1040\" timestamp=\"1603814351947\" />\r\n    <state x=\"652\" y=\"260\" key=\"AndroidCreateXmlResourceDialog\" timestamp=\"1601722340201\">\r\n      <screen x=\"0\" y=\"0\" width=\"1920\" height=\"1040\" />\r\n    </state>\r\n    <state x=\"652\" y=\"260\" key=\"AndroidCreateXmlResourceDialog/0.0.1920.1040@0.0.1920.1040\" timestamp=\"1601722340201\" />\r\n    <state x=\"540\" y=\"224\" key=\"AndroidThemeDialog\" timestamp=\"1601719679954\">\r\n      <screen x=\"0\" y=\"0\" width=\"1920\" height=\"1040\" />\r\n    </state>\r\n    <state x=\"540\" y=\"224\" key=\"AndroidThemeDialog/0.0.1920.1040@0.0.1920.1040\" timestamp=\"1601719679954\" />\r\n    <state x=\"740\" y=\"274\" key=\"FileChooserDialogImpl\" timestamp=\"1605025097438\">\r\n      <screen x=\"0\" y=\"0\" width=\"1920\" height=\"1040\" />\r\n    </state>\r\n    <state x=\"740\" y=\"274\" key=\"FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040\" timestamp=\"1605025097438\" />\r\n    <state width=\"1877\" height=\"265\" key=\"GridCell.Tab.0.bottom\" timestamp=\"1605027591894\">\r\n      <screen x=\"0\" y=\"0\" width=\"1920\" height=\"1040\" />\r\n    </state>\r\n    <state width=\"1877\" height=\"265\" key=\"GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040\" timestamp=\"1605027591894\" />\r\n    <state width=\"1877\" height=\"265\" key=\"GridCell.Tab.0.center\" timestamp=\"1605027591893\">\r\n      <screen x=\"0\" y=\"0\" width=\"1920\" height=\"1040\" />\r\n    </state>\r\n    <state width=\"1877\" height=\"265\" key=\"GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040\" timestamp=\"1605027591893\" />\r\n    <state width=\"1877\" height=\"265\" key=\"GridCell.Tab.0.left\" timestamp=\"1605027591893\">\r\n      <screen x=\"0\" y=\"0\" width=\"1920\" height=\"1040\" />\r\n    </state>\r\n    <state width=\"1877\" height=\"265\" key=\"GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040\" timestamp=\"1605027591893\" />\r\n    <state width=\"1877\" height=\"265\" key=\"GridCell.Tab.0.right\" timestamp=\"1605027591893\">\r\n      <screen x=\"0\" y=\"0\" width=\"1920\" height=\"1040\" />\r\n    </state>\r\n    <state width=\"1877\" height=\"265\" key=\"GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040\" timestamp=\"1605027591893\" />\r\n    <state width=\"1877\" height=\"252\" key=\"GridCell.Tab.1.bottom\" timestamp=\"1601572656597\">\r\n      <screen x=\"0\" y=\"0\" width=\"1920\" height=\"1040\" />\r\n    </state>\r\n    <state width=\"1877\" height=\"252\" key=\"GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040\" timestamp=\"1601572656597\" />\r\n    <state width=\"1877\" height=\"252\" key=\"GridCell.Tab.1.center\" timestamp=\"1601572656597\">\r\n      <screen x=\"0\" y=\"0\" width=\"1920\" height=\"1040\" />\r\n    </state>\r\n    <state width=\"1877\" height=\"252\" key=\"GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040\" timestamp=\"1601572656597\" />\r\n    <state width=\"1877\" height=\"252\" key=\"GridCell.Tab.1.left\" timestamp=\"1601572656597\">\r\n      <screen x=\"0\" y=\"0\" width=\"1920\" height=\"1040\" />\r\n    </state>\r\n    <state width=\"1877\" height=\"252\" key=\"GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040\" timestamp=\"1601572656597\" />\r\n    <state width=\"1877\" height=\"252\" key=\"GridCell.Tab.1.right\" timestamp=\"1601572656597\">\r\n      <screen x=\"0\" y=\"0\" width=\"1920\" height=\"1040\" />\r\n    </state>\r\n    <state width=\"1877\" height=\"252\" key=\"GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040\" timestamp=\"1601572656597\" />\r\n    <state x=\"461\" y=\"162\" key=\"SettingsEditor\" timestamp=\"1601650036692\">\r\n      <screen x=\"0\" y=\"0\" width=\"1920\" height=\"1040\" />\r\n    </state>\r\n    <state x=\"461\" y=\"162\" key=\"SettingsEditor/0.0.1920.1040@0.0.1920.1040\" timestamp=\"1601650036692\" />\r\n    <state width=\"498\" height=\"446\" key=\"SwitcherDM\" timestamp=\"1601695457701\">\r\n      <screen x=\"0\" y=\"0\" width=\"1920\" height=\"1040\" />\r\n    </state>\r\n    <state width=\"498\" height=\"446\" key=\"SwitcherDM/0.0.1920.1040@0.0.1920.1040\" timestamp=\"1601695457701\" />\r\n    <state x=\"360\" y=\"120\" width=\"1200\" height=\"800\" key=\"com.android.tools.idea.avdmanager.AvdListDialog\" timestamp=\"1601720532796\">\r\n      <screen x=\"0\" y=\"0\" width=\"1920\" height=\"1040\" />\r\n    </state>\r\n    <state x=\"360\" y=\"120\" width=\"1200\" height=\"800\" key=\"com.android.tools.idea.avdmanager.AvdListDialog/0.0.1920.1040@0.0.1920.1040\" timestamp=\"1601720532796\" />\r\n    <state x=\"663\" y=\"323\" key=\"com.intellij.ide.util.TipDialog\" timestamp=\"1601422014434\">\r\n      <screen x=\"0\" y=\"0\" width=\"1920\" height=\"1040\" />\r\n    </state>\r\n    <state x=\"663\" y=\"323\" key=\"com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040\" timestamp=\"1601422014434\" />\r\n    <state x=\"616\" y=\"240\" key=\"run.anything.popup\" timestamp=\"1601519221812\">\r\n      <screen x=\"0\" y=\"0\" width=\"1920\" height=\"1040\" />\r\n    </state>\r\n    <state x=\"616\" y=\"240\" key=\"run.anything.popup/0.0.1920.1040@0.0.1920.1040\" timestamp=\"1601519221812\" />\r\n    <state x=\"143\" y=\"230\" width=\"672\" height=\"678\" key=\"search.everywhere.popup\" timestamp=\"1603814153296\">\r\n      <screen x=\"0\" y=\"0\" width=\"1920\" height=\"1040\" />\r\n    </state>\r\n    <state x=\"143\" y=\"230\" width=\"672\" height=\"678\" key=\"search.everywhere.popup/0.0.1920.1040@0.0.1920.1040\" timestamp=\"1603814153296\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/workspace.xml	(revision 1f8e00576448c76ceb8720c9c147f936dc4b9fea)
++++ .idea/workspace.xml	(date 1607022166979)
+@@ -12,14 +12,40 @@
+     <option name="TOOL_WINDOW_LOG_LEVEL" value="error" />
+     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+   </component>
++  <component name="BranchesTreeState">
++    <expand>
++      <path>
++        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
++        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
++      </path>
++      <path>
++        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
++        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
++      </path>
++      <path>
++        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
++        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
++        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
++      </path>
++    </expand>
++    <select />
++  </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="0dec2872-ef5e-49c9-b011-a5ae1204bc5e" name="Default Changelist" comment="" />
++    <list default="true" id="0dec2872-ef5e-49c9-b011-a5ae1204bc5e" name="Default Changelist" comment="testing">
++      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__me_dm7_barcodescanner_core_1_9_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__me_dm7_barcodescanner_core_1_9_aar.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tried/databaseSetup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tried/databaseSetup.java" afterDir="false" />
++    </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+     <option name="LAST_RESOLUTION" value="IGNORE" />
+   </component>
+-  <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_2_API_29" />
++  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[e497863c]" />
+   <component name="ExternalProjectsData">
+     <projectState path="$PROJECT_DIR$">
+       <ProjectState />
+@@ -45,17 +71,21 @@
+         <option value="layoutResourceFile" />
+       </list>
+     </option>
++  </component>
++  <component name="Git.Settings">
++    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+   </component>
+   <component name="ProjectId" id="1iARISla4wl1dTXA8AjeC1snId3" />
++  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+   <component name="ProjectViewState">
+     <option name="hideEmptyMiddlePackages" value="true" />
+-    <option name="showExcludedFiles" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+   <component name="PropertiesComponent">
+     <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="e497863c" />
+     <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-09-29T03:22:49.057Z" />
+     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
++    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+     <property name="android.recentlyUsedThemes" value="android:Theme.Material" />
+     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
+     <property name="last_opened_file_path" value="$USER_HOME$/Desktop" />
+@@ -84,12 +114,13 @@
+       </method>
+     </configuration>
+     <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
+-      <module name="app" />
++      <module name="Tried.app" />
+       <option name="DEPLOY" value="true" />
+       <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+       <option name="DEPLOY_AS_INSTANT" value="false" />
+       <option name="ARTIFACT_NAME" value="" />
+       <option name="PM_INSTALL_OPTIONS" value="" />
++      <option name="ALL_USERS" value="false" />
+       <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+       <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+       <option name="MODE" value="default_activity" />
+@@ -125,11 +156,16 @@
+       </Native>
+       <Profilers>
+         <option name="ADVANCED_PROFILING_ENABLED" value="false" />
++        <option name="STARTUP_PROFILING_ENABLED" value="false" />
+         <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+         <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sample Java Methods" />
++        <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
++        <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
+       </Profilers>
+       <option name="DEEP_LINK" value="" />
+       <option name="ACTIVITY_CLASS" value="" />
++      <option name="SEARCH_ACTIVITY_IN_GLOBAL_SCOPE" value="false" />
++      <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
+       <method v="2">
+         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+       </method>
+@@ -147,6 +183,18 @@
+       <updated>1601348329977</updated>
+     </task>
+     <servers />
++  </component>
++  <component name="Vcs.Log.Tabs.Properties">
++    <option name="TAB_STATES">
++      <map>
++        <entry key="MAIN">
++          <value>
++            <State />
++          </value>
++        </entry>
++      </map>
++    </option>
++    <option name="oldMeFiltersMigrated" value="true" />
+   </component>
+   <component name="WindowStateProjectService">
+     <state x="477" y="251" key="#PSD" timestamp="1601519024690">

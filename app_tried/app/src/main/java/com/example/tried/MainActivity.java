@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -31,18 +32,23 @@ public class MainActivity extends AppCompatActivity {
     private final int CAMERA_PERMISSION_CODE = 1;
     private ListView itemView;
     public ArrayList<String> items = new ArrayList<>();
+    Toolbar myToolbar;
+    databaseSetup db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar myToolbar = findViewById(R.id.toolbar);
+        myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
+
+        db = com.example.tried.databaseSetup.getInstance(this);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
+
 
         Button button = findViewById(R.id.closeButton);
         itemView = findViewById(R.id.itemListView);
         setData();
-
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -55,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
         itemView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -64,21 +69,15 @@ public class MainActivity extends AppCompatActivity {
 
                 databaseSetup.setProductCode(code);
                 startActivity(new Intent(getApplicationContext(), viewProduct.class));
-
-
             }
         });
-
     }
 
     public static boolean doesContain(ArrayList<String> products, String productID) {
         return products.contains(productID);
     }
-
     private void requestCameraPermission() {
-
         if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
-
             new AlertDialog.Builder(this)
                     .setTitle("Permission needed")
                     .setMessage("This permission is needed to allow you to utilize the Barcode Scanner")
@@ -122,13 +121,14 @@ public class MainActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                return false;
+                return true;
             }
 
             //
             @Override
             public boolean onQueryTextChange(String newText) {
                 ArrayList<String> itemsList = new ArrayList<>();
+                items = databaseSetup.getAllProductNames();
 
                 for (String item : items) {
                     if (item.toLowerCase().contains(newText.toLowerCase())) {
@@ -143,13 +143,16 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-        return false;
+        return true;
     }
 
     private void setData() {
         try {
-            ArrayAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, databaseSetup.getAllProductNames());
+            db.getReadableDatabase();
+            ArrayList<String> items = databaseSetup.getAllProductNames();
+            ArrayAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items);
             itemView.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
         } catch (Exception e) {
             e.printStackTrace();
         }

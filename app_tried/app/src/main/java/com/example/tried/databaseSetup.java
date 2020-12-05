@@ -56,6 +56,7 @@ public class databaseSetup extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(SQL_DELETE_TABLE_QUERY);
         onCreate(db);
+
     }
 
     public static void insertNewProduct(String productCode, String productName, float productRating) {
@@ -68,8 +69,7 @@ public class databaseSetup extends SQLiteOpenHelper {
             values.put(COLUMN_NAME, productName);
             values.put(COLUMN_RATING, productRating);
             db.insert(TABLE_PRODUCTS, null, values);
-
-
+            db.close();
         }
     }
 
@@ -83,12 +83,9 @@ public class databaseSetup extends SQLiteOpenHelper {
         values.put(COLUMN_NAME, productName);
         values.put(COLUMN_RATING, productRating);
         db.update(TABLE_PRODUCTS, values, "CODE = ?", new String[]{productCode});
-
-
+        db.close();
         return true;
-
     }
-
 
     public static void setProductCode(String productCode) {
         databaseSetup.productCode = productCode;
@@ -99,7 +96,7 @@ public class databaseSetup extends SQLiteOpenHelper {
     }
 
     public static ArrayList<String> getAllProducts() {
-        SQLiteDatabase db = instance.getWritableDatabase();
+        SQLiteDatabase db = instance.getReadableDatabase();
 
         @SuppressLint("Recycle") Cursor dbCursor = db.query(TABLE_PRODUCTS, null,
                 null, null, null, null, null);
@@ -112,13 +109,13 @@ public class databaseSetup extends SQLiteOpenHelper {
             dbCursor.moveToNext();
 
         }
+        db.close();
         return productID;
     }
 
     public static String getProductName(String productCode) {
 
-        SQLiteDatabase db = instance.getWritableDatabase();
-
+        SQLiteDatabase db = instance.getReadableDatabase();
 
         @SuppressLint("Recycle") Cursor dbCursor = db.query(TABLE_PRODUCTS, null,
                 null, null, null, null, null);
@@ -146,7 +143,7 @@ public class databaseSetup extends SQLiteOpenHelper {
 
     public static float getProductRating(String productCode) {
 
-        SQLiteDatabase db = instance.getWritableDatabase();
+        SQLiteDatabase db = instance.getReadableDatabase();
 
         @SuppressLint("Recycle") Cursor dbCursor = db.query(TABLE_PRODUCTS, null,
                 null, null, null, null, null);
@@ -198,7 +195,6 @@ public class databaseSetup extends SQLiteOpenHelper {
         }
     }
 
-
     public static ArrayList<String> getAllProductNames() {
 
         SQLiteDatabase db = instance.getReadableDatabase();
@@ -213,6 +209,7 @@ public class databaseSetup extends SQLiteOpenHelper {
             productNames.add(dbCursor.getString(dbCursor.getColumnIndex(COLUMN_NAME)));
             dbCursor.moveToNext();
         }
+        db.close();
         return productNames;
     }
 }

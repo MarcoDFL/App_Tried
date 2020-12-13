@@ -1,0 +1,20 @@
+Index: src/main/res/layout/activity_main.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n\r\n\r\n\r\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    tools:context=\".MainActivity\">\r\n\r\n    <include\r\n        android:id=\"@+id/toolbar\"\r\n        layout=\"@layout/toolbar\" />\r\n\r\n    <Button\r\n        android:id=\"@+id/closeButton\"\r\n        android:layout_width=\"140dp\"\r\n        android:layout_height=\"57dp\"\r\n        android:text=\"@string/scan_barcode\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintHorizontal_bias=\"0.498\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\"\r\n        app:layout_constraintVertical_bias=\"0.106\" />\r\n\r\n    <ListView\r\n        android:id=\"@+id/itemListView\"\r\n        android:layout_width=\"409dp\"\r\n        android:layout_height=\"600dp\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/closeButton\" />\r\n\r\n</androidx.constraintlayout.widget.ConstraintLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/res/layout/activity_main.xml	(revision 0e9adb96af2236fdfdebaa90b53b46f61c8be329)
++++ src/main/res/layout/activity_main.xml	(date 1607833681143)
+@@ -9,10 +9,6 @@
+     android:layout_height="match_parent"
+     tools:context=".MainActivity">
+ 
+-    <include
+-        android:id="@+id/toolbar"
+-        layout="@layout/toolbar" />
+-
+     <Button
+         android:id="@+id/closeButton"
+         android:layout_width="140dp"

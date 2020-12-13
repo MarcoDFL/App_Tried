@@ -1,0 +1,171 @@
+Index: src/main/java/com/example/tried/MainActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.tried;\r\n\r\nimport android.Manifest;\r\nimport android.content.DialogInterface;\r\nimport android.content.Intent;\r\nimport android.content.pm.PackageManager;\r\nimport android.os.Bundle;\r\nimport android.view.Menu;\r\nimport android.view.MenuInflater;\r\nimport android.view.MenuItem;\r\nimport android.view.View;\r\nimport android.widget.AdapterView;\r\nimport android.widget.ArrayAdapter;\r\nimport android.widget.Button;\r\nimport android.widget.ListView;\r\nimport android.widget.SearchView;\r\nimport android.widget.Toast;\r\n\r\nimport androidx.annotation.NonNull;\r\nimport androidx.appcompat.app.AlertDialog;\r\nimport androidx.appcompat.app.AppCompatActivity;\r\nimport androidx.appcompat.widget.Toolbar;\r\nimport androidx.core.app.ActivityCompat;\r\nimport androidx.core.content.ContextCompat;\r\nimport androidx.core.view.MenuItemCompat;\r\n\r\nimport java.util.ArrayList;\r\n\r\npublic class MainActivity extends AppCompatActivity {\r\n\r\n    private final int CAMERA_PERMISSION_CODE = 1;\r\n    private ListView itemView;\r\n    public ArrayList<String> items = new ArrayList<>();\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_main);\r\n        Toolbar myToolbar = findViewById(R.id.toolbar);\r\n        setSupportActionBar(myToolbar);\r\n\r\n        Button button = findViewById(R.id.closeButton);\r\n        itemView = findViewById(R.id.itemListView);\r\n        setData();\r\n\r\n        button.setOnClickListener(new View.OnClickListener() {\r\n\r\n            @Override\r\n            public void onClick(View v) {\r\n                if (ContextCompat.checkSelfPermission(MainActivity.this,\r\n                        Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {\r\n                    startActivity(new Intent(getApplicationContext(), codeScanActivity.class));\r\n                } else {\r\n                    requestCameraPermission();\r\n                }\r\n            }\r\n        });\r\n\r\n        itemView.setOnItemClickListener(new AdapterView.OnItemClickListener() {\r\n            @Override\r\n            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {\r\n                String text = itemView.getItemAtPosition(position).toString();\r\n                String code = databaseSetup.getCodeFromName(text);\r\n\r\n                databaseSetup.setProductCode(code);\r\n                startActivity(new Intent(getApplicationContext(), viewProduct.class));\r\n\r\n\r\n            }\r\n        });\r\n\r\n    }\r\n\r\n    public static boolean doesContain(ArrayList<String> products, String productID) {\r\n        return products.contains(productID);\r\n    }\r\n\r\n    private void requestCameraPermission() {\r\n\r\n        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {\r\n\r\n            new AlertDialog.Builder(this)\r\n                    .setTitle(\"Permission needed\")\r\n                    .setMessage(\"This permission is needed to allow you to utilize the Barcode Scanner\")\r\n                    .setPositiveButton(\"Ok\", new DialogInterface.OnClickListener() {\r\n                        @Override\r\n                        public void onClick(DialogInterface dialog, int which) {\r\n                            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);\r\n                        }\r\n                    })\r\n                    .setNegativeButton(\"Cancel\", new DialogInterface.OnClickListener() {\r\n                        @Override\r\n                        public void onClick(DialogInterface dialog, int which) {\r\n                            dialog.dismiss();\r\n                        }\r\n                    })\r\n                    .create().show();\r\n        } else {\r\n            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {\r\n        if (requestCode == CAMERA_PERMISSION_CODE) {\r\n            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {\r\n                Toast.makeText(this, \"Permission GRANTED\", Toast.LENGTH_SHORT).show();\r\n            } else {\r\n                Toast.makeText(this, \"Permission DENIED\", Toast.LENGTH_SHORT).show();\r\n            }\r\n        }\r\n    }\r\n\r\n    public boolean onCreateOptionsMenu(Menu menu) {\r\n\r\n        MenuInflater menuInflater = getMenuInflater();\r\n        menuInflater.inflate(R.menu.options, menu);\r\n        MenuItem menuItem = menu.findItem(R.id.action_search);\r\n        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);\r\n\r\n\r\n        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {\r\n            @Override\r\n            public boolean onQueryTextSubmit(String query) {\r\n                return false;\r\n            }\r\n\r\n            //\r\n            @Override\r\n            public boolean onQueryTextChange(String newText) {\r\n                ArrayList<String> itemsList = new ArrayList<>();\r\n\r\n                for (String item : items) {\r\n                    if (item.toLowerCase().contains(newText.toLowerCase())) {\r\n                        itemsList.add(item);\r\n                    }\r\n                }\r\n\r\n                ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this,\r\n                        android.R.layout.simple_list_item_1, itemsList);\r\n                itemView.setAdapter(adapter);\r\n\r\n                return true;\r\n            }\r\n        });\r\n        return false;\r\n    }\r\n\r\n    private void setData() {\r\n        try {\r\n            ArrayAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, databaseSetup.getAllProductNames());\r\n            itemView.setAdapter(adapter);\r\n        } catch (Exception e) {\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/com/example/tried/MainActivity.java	(revision 0e9adb96af2236fdfdebaa90b53b46f61c8be329)
++++ src/main/java/com/example/tried/MainActivity.java	(date 1607832000236)
+@@ -5,24 +5,16 @@
+ import android.content.Intent;
+ import android.content.pm.PackageManager;
+ import android.os.Bundle;
+-import android.view.Menu;
+-import android.view.MenuInflater;
+-import android.view.MenuItem;
+ import android.view.View;
+ import android.widget.AdapterView;
+-import android.widget.ArrayAdapter;
+ import android.widget.Button;
+ import android.widget.ListView;
+-import android.widget.SearchView;
+ import android.widget.Toast;
+ 
+-import androidx.annotation.NonNull;
+ import androidx.appcompat.app.AlertDialog;
+ import androidx.appcompat.app.AppCompatActivity;
+-import androidx.appcompat.widget.Toolbar;
+ import androidx.core.app.ActivityCompat;
+ import androidx.core.content.ContextCompat;
+-import androidx.core.view.MenuItemCompat;
+ 
+ import java.util.ArrayList;
+ 
+@@ -30,18 +22,14 @@
+ 
+     private final int CAMERA_PERMISSION_CODE = 1;
+     private ListView itemView;
+-    public ArrayList<String> items = new ArrayList<>();
+ 
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+         setContentView(R.layout.activity_main);
+-        Toolbar myToolbar = findViewById(R.id.toolbar);
+-        setSupportActionBar(myToolbar);
+ 
+         Button button = findViewById(R.id.closeButton);
+         itemView = findViewById(R.id.itemListView);
+-        setData();
+ 
+         button.setOnClickListener(new View.OnClickListener() {
+ 
+@@ -64,11 +52,8 @@
+ 
+                 databaseSetup.setProductCode(code);
+                 startActivity(new Intent(getApplicationContext(), viewProduct.class));
+-
+-
+             }
+         });
+-
+     }
+ 
+     public static boolean doesContain(ArrayList<String> products, String productID) {
+@@ -101,57 +86,14 @@
+     }
+ 
+     @Override
+-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
++    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+         if (requestCode == CAMERA_PERMISSION_CODE) {
+             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                 Toast.makeText(this, "Permission GRANTED", Toast.LENGTH_SHORT).show();
++                startActivity(new Intent(getApplicationContext(), codeScanActivity.class));
+             } else {
+                 Toast.makeText(this, "Permission DENIED", Toast.LENGTH_SHORT).show();
+             }
+         }
+     }
+-
+-    public boolean onCreateOptionsMenu(Menu menu) {
+-
+-        MenuInflater menuInflater = getMenuInflater();
+-        menuInflater.inflate(R.menu.options, menu);
+-        MenuItem menuItem = menu.findItem(R.id.action_search);
+-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+-
+-
+-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+-            @Override
+-            public boolean onQueryTextSubmit(String query) {
+-                return false;
+-            }
+-
+-            //
+-            @Override
+-            public boolean onQueryTextChange(String newText) {
+-                ArrayList<String> itemsList = new ArrayList<>();
+-
+-                for (String item : items) {
+-                    if (item.toLowerCase().contains(newText.toLowerCase())) {
+-                        itemsList.add(item);
+-                    }
+-                }
+-
+-                ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this,
+-                        android.R.layout.simple_list_item_1, itemsList);
+-                itemView.setAdapter(adapter);
+-
+-                return true;
+-            }
+-        });
+-        return false;
+-    }
+-
+-    private void setData() {
+-        try {
+-            ArrayAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, databaseSetup.getAllProductNames());
+-            itemView.setAdapter(adapter);
+-        } catch (Exception e) {
+-            e.printStackTrace();
+-        }
+-    }
+ }
+\ No newline at end of file
+Index: src/main/res/menu/options.xml
+===================================================================
+--- src/main/res/menu/options.xml	(revision 0e9adb96af2236fdfdebaa90b53b46f61c8be329)
++++ src/main/res/menu/options.xml	(revision 0e9adb96af2236fdfdebaa90b53b46f61c8be329)
+@@ -1,15 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<menu xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto">
+-
+-    <item
+-        android:id="@+id/action_search"
+-        android:icon="@drawable/ic_search_foreground"
+-        android:title="@string/search"
+-        app:actionViewClass="android.widget.SearchView"
+-        app:showAsAction="always|collapseActionView" />
+-
+-
+-
+-
+-</menu>
+\ No newline at end of file
+Index: src/main/res/layout/toolbar.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/res/layout/toolbar.xml	(revision 0e9adb96af2236fdfdebaa90b53b46f61c8be329)
++++ src/main/res/layout/toolbar.xml	(revision 0e9adb96af2236fdfdebaa90b53b46f61c8be329)
+@@ -1,11 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-
+-<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+-    android:layout_width="match_parent"
+-    android:layout_height="wrap_content"
+-    android:background="@color/colorAccent"
+-    android:elevation="4dp">
+-
+-
+-
+-</androidx.appcompat.widget.Toolbar>
+\ No newline at end of file
+diff --git .idea/shelf/Uncommitted_changes_before_Checkout_at_03_12_2020_19_04_[Default_Changelist]1/shelved.patch .idea/shelf/Uncommitted_changes_before_Checkout_at_03_12_2020_19_04_[Default_Changelist]1/shelved.patch
+deleted file mode 100644
+diff --git .idea/shelf/Uncommitted_changes_before_Checkout_at_03_12_2020_19_04__Default_Changelist_.xml .idea/shelf/Uncommitted_changes_before_Checkout_at_03_12_2020_19_04__Default_Changelist_.xml
+diff --git .idea/shelf/Uncommitted_changes_before_Checkout_at_03_12_2020_19_04__Default_Changelist_1.xml .idea/shelf/Uncommitted_changes_before_Checkout_at_03_12_2020_19_04__Default_Changelist_1.xml

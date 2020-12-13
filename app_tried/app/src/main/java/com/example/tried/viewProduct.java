@@ -10,13 +10,16 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class viewProduct extends AppCompatActivity {
-
     static TextView showID;
-     Button closeButton;
-     Button editButton;
-
-     static RatingBar ratingBar;
-     static TextView productName;
+    Button closeButton;
+    Button editButton;
+    static RatingBar ratingBar;
+    static TextView productName;
+    static TextView dateAdded;
+    static String name;
+    static String date;
+    static String id;
+    static String id_send;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,16 +27,24 @@ public class viewProduct extends AppCompatActivity {
         setContentView(R.layout.activity_view_product);
         closeButton = findViewById(R.id.closeButton);
         editButton = findViewById(R.id.editButton);
+        dateAdded = findViewById(R.id.dateAdded);
 
         ratingBar = findViewById(R.id.ratingBar);
         productName = findViewById(R.id.productName);
         showID = findViewById(R.id.showID);
 
-        showID.setText(databaseSetup.getProductCode());
+        id = "Product ID: "+databaseSetup.getProductCode().trim();
+        id_send = databaseSetup.getProductCode().trim();
+        showID.setText(id);
 
-        String test = (String) showID.getText();
-        productName.setText(databaseSetup.getProductName(test));
-        ratingBar.setRating(databaseSetup.getProductRating(test));
+        String productCode = databaseSetup.getProductCode().trim();
+        name = "Product Name: "+databaseSetup.getProductName(productCode);
+        productName.setText(name);
+
+        ratingBar.setRating(databaseSetup.getProductRating(productCode));
+
+        date = "Date Added: "+databaseSetup.getProductDate(productCode);
+        dateAdded.setText(date);
 
         ratingBar.setIsIndicator(true);
 
@@ -53,7 +64,6 @@ public class viewProduct extends AppCompatActivity {
 
                 startActivity(new Intent(getApplicationContext(), editProduct.class));
                 viewProduct.this.finish();
-
 
             }
         });

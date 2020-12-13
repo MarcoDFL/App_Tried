@@ -16,6 +16,7 @@ public class editProduct extends AppCompatActivity {
      Button submit;
     RatingBar ratingBar;
     EditText productName;
+    TextView productDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,11 +26,13 @@ public class editProduct extends AppCompatActivity {
         ratingBar = findViewById(R.id.ratingBar);
         productName = findViewById(R.id.productName);
         showID = findViewById(R.id.showID);
+        productDate = findViewById(R.id.dateAdded);
 
 
         ratingBar.setRating(viewProduct.ratingBar.getRating());
-        productName.setText(viewProduct.productName.getText());
-        showID.setText(viewProduct.showID.getText());
+        productName.setText(databaseSetup.getProductName(viewProduct.id_send));
+        showID.setText(viewProduct.id);
+        productDate.setText(viewProduct.date);
 
         submit.setOnClickListener(new View.OnClickListener() {
 
@@ -41,7 +44,7 @@ public class editProduct extends AppCompatActivity {
                 }
                 else{
                     try {
-                        boolean isUpdated = databaseSetup.editProduct(showID.getText().toString(), productName
+                        boolean isUpdated = databaseSetup.editProduct(databaseSetup.getProductCode(), productName
                                 .getText().toString(), ratingBar.getRating());
 
 

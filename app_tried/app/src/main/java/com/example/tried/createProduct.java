@@ -2,6 +2,7 @@ package com.example.tried;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,7 +11,11 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class createProduct extends AppCompatActivity {
 
@@ -21,6 +26,7 @@ public class createProduct extends AppCompatActivity {
     RatingBar ratingBar;
     EditText productName;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +36,10 @@ public class createProduct extends AppCompatActivity {
         productName = findViewById(R.id.productName);
         showID = findViewById(R.id.showID);
         createProduct.showID.setText(databaseSetup.getProductCode());
+
+        LocalDateTime myDateObj = LocalDateTime.now();
+        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        final String formattedDate = myDateObj.format(myFormatObj);
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,7 +51,7 @@ public class createProduct extends AppCompatActivity {
                 else{
                     try {
                         databaseSetup.insertNewProduct(showID.getText().toString(), productName
-                                .getText().toString(), ratingBar.getRating());
+                                .getText().toString(), ratingBar.getRating(), formattedDate);
                         startActivity(new Intent(getApplicationContext(), viewProduct.class));
                         createProduct.this.finish();
 

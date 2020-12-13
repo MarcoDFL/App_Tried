@@ -28,8 +28,11 @@ public class databaseSetup extends SQLiteOpenHelper {
 
     private static final String COLUMN_RATING = "RATING";
 
+    private static final String COLUMN_DATE = "DATE";
+
+
     private static final String SQL_CREATE_TABLE_QUERY = "CREATE TABLE " + TABLE_PRODUCTS +
-            " (" + COLUMN_CODE + " TEXT PRIMARY KEY, " + " " + COLUMN_NAME + " TEXT, " + COLUMN_RATING + " TEXT)";
+            " (" + COLUMN_CODE + " TEXT PRIMARY KEY, " + " " + COLUMN_NAME + " TEXT, " + COLUMN_RATING + " TEXT, " + COLUMN_DATE + " TEXT)";
 
     private static final String SQL_DELETE_TABLE_QUERY =
             "DROP TABLE IF EXISTS " + TABLE_PRODUCTS;
@@ -47,6 +50,34 @@ public class databaseSetup extends SQLiteOpenHelper {
         return instance;
     }
 
+    public static String getProductDate(String productCode) {
+
+        SQLiteDatabase db = instance.getReadableDatabase();
+
+        @SuppressLint("Recycle") Cursor dbCursor = db.query(TABLE_PRODUCTS, null,
+                null, null, null, null, null);
+
+        try {
+            ArrayList<String> productCodes = new ArrayList<>();
+            ArrayList<String> productDate = new ArrayList<>();
+
+            dbCursor.moveToFirst();
+            while (!dbCursor.isAfterLast()) {
+                productDate.add(dbCursor.getString(dbCursor.getColumnIndex(COLUMN_DATE)));
+                productCodes.add(dbCursor.getString(dbCursor.getColumnIndex(COLUMN_CODE)));
+                dbCursor.moveToNext();
+
+            }
+
+            int testTest = productCodes.indexOf(productCode);
+            db.close();
+            return productDate.get(testTest);
+        } catch (Exception e) {
+            System.err.println("Doesn't exist");
+            return null;
+        }
+    }
+
     @Override
     public void onCreate(SQLiteDatabase SQLiteDatabase) {
         SQLiteDatabase.execSQL(SQL_CREATE_TABLE_QUERY);
@@ -59,7 +90,7 @@ public class databaseSetup extends SQLiteOpenHelper {
 
     }
 
-    public static void insertNewProduct(String productCode, String productName, float productRating) {
+    public static void insertNewProduct(String productCode, String productName, float productRating, String formattedDate) {
         SQLiteDatabase db = instance.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -68,6 +99,7 @@ public class databaseSetup extends SQLiteOpenHelper {
             values.put(COLUMN_CODE, productCode);
             values.put(COLUMN_NAME, productName);
             values.put(COLUMN_RATING, productRating);
+            values.put(COLUMN_DATE, formattedDate);
             db.insert(TABLE_PRODUCTS, null, values);
             db.close();
         }
@@ -83,7 +115,6 @@ public class databaseSetup extends SQLiteOpenHelper {
         values.put(COLUMN_NAME, productName);
         values.put(COLUMN_RATING, productRating);
         db.update(TABLE_PRODUCTS, values, "CODE = ?", new String[]{productCode});
-        db.close();
         return true;
     }
 
@@ -109,7 +140,7 @@ public class databaseSetup extends SQLiteOpenHelper {
             dbCursor.moveToNext();
 
         }
-        db.close();
+//        db.close();
         return productID;
     }
 
@@ -160,7 +191,6 @@ public class databaseSetup extends SQLiteOpenHelper {
             }
 
             int testTest = productCodes.indexOf(productCode);
-            db.close();
 
             return productRatings.get(testTest);
         } catch (Exception e) {

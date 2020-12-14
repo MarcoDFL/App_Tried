@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -25,6 +26,7 @@ public class createProduct extends AppCompatActivity {
     static Button submit;
     RatingBar ratingBar;
     EditText productName;
+    Toolbar myToolbar;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -36,6 +38,11 @@ public class createProduct extends AppCompatActivity {
         productName = findViewById(R.id.productName);
         showID = findViewById(R.id.showID);
         createProduct.showID.setText(databaseSetup.getProductCode());
+
+        myToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(myToolbar);
+
+
 
         LocalDateTime myDateObj = LocalDateTime.now();
         DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");

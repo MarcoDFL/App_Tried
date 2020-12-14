@@ -39,17 +39,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0dec2872-ef5e-49c9-b011-a5ae1204bc5e" name="Default Changelist" comment="fixup! Fixed gradle errors causing program not to run.">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_03_12_2020_19_04_[Default_Changelist]1/build_file_checksums.ser" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_03_12_2020_19_04_[Default_Changelist]1/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_03_12_2020_19_04__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_03_12_2020_19_04__Default_Changelist_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_03_12_2020_19_04__Default_Changelist_1.xml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/addButton-playstore.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/add_foreground.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/values/addButton_background.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_13_12_2020_04_29__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_13_12_2020_04_29__Default_Changelist_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_13_12_2020_04_29__Default_Changelist_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_13_12_2020_04_29__Default_Changelist_1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_13_12_2020_04_29__testing_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_13_12_2020_04_29__testing_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tried/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tried/MainActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tried/createProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tried/createProduct.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tried/databaseSetup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tried/databaseSetup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tried/editProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tried/editProduct.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tried/viewProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tried/viewProduct.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_new_product.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_new_product.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_view_product.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_view_product.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/menu/options.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/menu/options.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <list id="2377bcf8-abb2-4134-9c40-fc2fc641eb92" name="testing" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -81,13 +85,14 @@
         <option value="resourceFile" />
         <option value="Class" />
         <option value="layoutResourceFile" />
+        <option value="valueResourceFile" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$/../.." value="0e9adb96af2236fdfdebaa90b53b46f61c8be329" />
+        <entry key="$PROJECT_DIR$/../.." value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
@@ -285,14 +290,14 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="60" y="278" key="AndroidCreateResourceDirectoryDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1601722268268" />
-    <state x="105" y="338" key="AndroidCreateResourceFileDialog" timestamp="1603814351947">
+    <state x="105" y="338" key="AndroidCreateResourceFileDialog" timestamp="1607904605703">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="105" y="338" key="AndroidCreateResourceFileDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1603814351947" />
-    <state x="652" y="260" key="AndroidCreateXmlResourceDialog" timestamp="1607836620090">
+    <state x="105" y="338" key="AndroidCreateResourceFileDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1607904605703" />
+    <state x="652" y="260" key="AndroidCreateXmlResourceDialog" timestamp="1607904186224">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="652" y="260" key="AndroidCreateXmlResourceDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1607836620090" />
+    <state x="652" y="260" key="AndroidCreateXmlResourceDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1607904186224" />
     <state x="540" y="224" key="AndroidThemeDialog" timestamp="1601719679954">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -313,22 +318,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="653" y="433" key="GitRewordDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1607022408440" />
-    <state width="1319" height="296" key="GridCell.Tab.0.bottom" timestamp="1607901907866">
+    <state width="658" height="231" key="GridCell.Tab.0.bottom" timestamp="1607904984489">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1319" height="296" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1607901907866" />
-    <state width="1319" height="296" key="GridCell.Tab.0.center" timestamp="1607901907866">
+    <state width="658" height="231" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1607904984489" />
+    <state width="658" height="231" key="GridCell.Tab.0.center" timestamp="1607904984489">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1319" height="296" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1607901907866" />
-    <state width="1319" height="296" key="GridCell.Tab.0.left" timestamp="1607901907866">
+    <state width="658" height="231" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1607904984489" />
+    <state width="658" height="231" key="GridCell.Tab.0.left" timestamp="1607904984489">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1319" height="296" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1607901907866" />
-    <state width="1319" height="296" key="GridCell.Tab.0.right" timestamp="1607901907866">
+    <state width="658" height="231" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1607904984489" />
+    <state width="658" height="231" key="GridCell.Tab.0.right" timestamp="1607904984489">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1319" height="296" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1607901907866" />
+    <state width="658" height="231" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1607904984489" />
     <state width="1319" height="296" key="GridCell.Tab.1.bottom" timestamp="1607901907867">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -393,28 +398,5 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="682" y="431" key="vcs.readOnlyHandler.ReadOnlyStatusDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1607019119358" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/com/example/tried/databaseSetup.java</url>
-          <line>108</line>
-          <properties class="com.example.tried.databaseSetup" method="editProduct" />
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/com/example/tried/databaseSetup.java</url>
-          <line>174</line>
-          <properties class="com.example.tried.databaseSetup" method="getProductRating" />
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/example/tried/databaseSetup.java</url>
-          <line>194</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

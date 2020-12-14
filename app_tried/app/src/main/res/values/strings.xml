@@ -8,4 +8,5 @@
     <string name="show_id">Show ID</string>
     <string name="close">close</string>
     <string name="search">search</string>
+    <string name="additem">addItem</string>
 </resources>

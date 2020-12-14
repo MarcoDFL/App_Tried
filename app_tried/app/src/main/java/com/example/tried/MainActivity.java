@@ -45,22 +45,9 @@ public class MainActivity extends AppCompatActivity {
         db = com.example.tried.databaseSetup.getInstance(this);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
 
-
-        Button button = findViewById(R.id.closeButton);
         itemView = findViewById(R.id.itemListView);
         setData();
-        button.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                if (ContextCompat.checkSelfPermission(MainActivity.this,
-                        Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-                    startActivity(new Intent(getApplicationContext(), codeScanActivity.class));
-                } else {
-                    requestCameraPermission();
-                }
-            }
-        });
         itemView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -143,6 +130,22 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == R.id.addItem){
+
+            if (ContextCompat.checkSelfPermission(MainActivity.this,
+                    Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                startActivity(new Intent(getApplicationContext(), codeScanActivity.class));
+            } else {
+                requestCameraPermission();
+            }
+        }
         return true;
     }
 

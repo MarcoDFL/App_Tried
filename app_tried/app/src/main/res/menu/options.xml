@@ -10,6 +10,12 @@
         android:title="@string/search"
         app:actionViewClass="android.widget.SearchView"
         app:showAsAction="always|collapseActionView" />
+    <item
+        android:id="@+id/addItem"
+        android:icon="@drawable/add_foreground"
+        android:title="@string/additem"
+        app:showAsAction="ifRoom" />
+
 
 
 </menu>

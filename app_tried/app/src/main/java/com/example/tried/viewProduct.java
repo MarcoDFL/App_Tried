@@ -8,6 +8,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 public class viewProduct extends AppCompatActivity {
     static TextView showID;
@@ -20,6 +21,7 @@ public class viewProduct extends AppCompatActivity {
     static String date;
     static String id;
     static String id_send;
+    Toolbar myToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,11 @@ public class viewProduct extends AppCompatActivity {
         ratingBar = findViewById(R.id.ratingBar);
         productName = findViewById(R.id.productName);
         showID = findViewById(R.id.showID);
+
+        myToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(myToolbar);
+
+
 
         id = "Product ID: "+databaseSetup.getProductCode().trim();
         id_send = databaseSetup.getProductCode().trim();

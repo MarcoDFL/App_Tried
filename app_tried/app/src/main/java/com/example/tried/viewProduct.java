@@ -1,14 +1,18 @@
 package com.example.tried;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import java.util.Objects;
 
 public class viewProduct extends AppCompatActivity {
     static TextView showID;
@@ -22,6 +26,7 @@ public class viewProduct extends AppCompatActivity {
     static String id_send;
     Toolbar myToolbar;
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +41,7 @@ public class viewProduct extends AppCompatActivity {
         myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         id = "Product ID: "+databaseSetup.getProductCode().trim();
@@ -60,7 +65,23 @@ public class viewProduct extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), editProduct.class));
             }
         });
+    }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        id = "Product ID: "+databaseSetup.getProductCode().trim();
+        id_send = databaseSetup.getProductCode().trim();
+        showID.setText(id);
+
+        String productCode = databaseSetup.getProductCode().trim();
+        name = "Product Name: "+databaseSetup.getProductName(productCode);
+        productName.setText(name);
+
+        ratingBar.setRating(databaseSetup.getProductRating(productCode));
+
+        date = "Date Added: "+databaseSetup.getProductDate(productCode);
+        dateAdded.setText(date);
     }
 
     @Override

@@ -60,7 +60,6 @@ public class editProduct extends AppCompatActivity {
                         else{
                             Toast.makeText(editProduct.this, "Something went wrong", Toast.LENGTH_SHORT).show();
                         }
-                        startActivity(new Intent(getApplicationContext(), viewProduct.class));
                         editProduct.this.finish();
                     }
                     catch(Exception e){

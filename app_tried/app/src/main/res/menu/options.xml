@@ -8,14 +8,10 @@
         android:id="@+id/action_search"
         android:icon="@drawable/ic_search_foreground"
         android:title="@string/search"
-        app:actionViewClass="android.widget.SearchView"
-        app:showAsAction="always|collapseActionView" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/addItem"
         android:icon="@drawable/add_foreground"
         android:title="@string/additem"
         app:showAsAction="ifRoom" />
-
-
-
 </menu>

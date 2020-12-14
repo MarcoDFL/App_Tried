@@ -101,36 +101,6 @@ public class MainActivity extends AppCompatActivity {
 
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.options, menu);
-        MenuItem menuItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
-
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return true;
-            }
-
-            //
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                ArrayList<String> itemsList = new ArrayList<>();
-                items = databaseSetup.getAllProductNames();
-
-                for (String item : items) {
-                    if (item.toLowerCase().contains(newText.toLowerCase())) {
-                        itemsList.add(item);
-                    }
-                }
-
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this,
-                        android.R.layout.simple_list_item_1, itemsList);
-                itemView.setAdapter(adapter);
-
-                return true;
-            }
-        });
-
         return true;
     }
 
@@ -138,13 +108,15 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if(id == R.id.addItem){
-
             if (ContextCompat.checkSelfPermission(MainActivity.this,
                     Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
                 startActivity(new Intent(getApplicationContext(), codeScanActivity.class));
             } else {
                 requestCameraPermission();
             }
+        }
+        if(id == R.id.action_search){
+            startActivity(new Intent(getApplicationContext(), searchForItem.class));
         }
         return true;
     }

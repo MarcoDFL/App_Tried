@@ -42,6 +42,9 @@ public class createProduct extends AppCompatActivity {
         myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
 
 
         LocalDateTime myDateObj = LocalDateTime.now();
@@ -68,11 +71,14 @@ public class createProduct extends AppCompatActivity {
                         Toast.makeText(createProduct.this, "Something went wrong",
                                 Toast.LENGTH_LONG).show();
                     }
-
                 }
-
-
             }
         });
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

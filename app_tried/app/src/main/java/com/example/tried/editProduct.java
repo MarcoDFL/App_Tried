@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 public class editProduct extends AppCompatActivity {
 
@@ -17,6 +18,7 @@ public class editProduct extends AppCompatActivity {
     RatingBar ratingBar;
     EditText productName;
     TextView productDate;
+    Toolbar myToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +29,11 @@ public class editProduct extends AppCompatActivity {
         productName = findViewById(R.id.productName);
         showID = findViewById(R.id.showID);
         productDate = findViewById(R.id.dateAdded);
+
+        myToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 
         ratingBar.setRating(viewProduct.ratingBar.getRating());
@@ -47,7 +54,6 @@ public class editProduct extends AppCompatActivity {
                         boolean isUpdated = databaseSetup.editProduct(databaseSetup.getProductCode(), productName
                                 .getText().toString(), ratingBar.getRating());
 
-
                         if(isUpdated){
                             Toast.makeText(editProduct.this, "Product Updated", Toast.LENGTH_SHORT).show();
                         }
@@ -56,17 +62,19 @@ public class editProduct extends AppCompatActivity {
                         }
                         startActivity(new Intent(getApplicationContext(), viewProduct.class));
                         editProduct.this.finish();
-
                     }
                     catch(Exception e){
                         Toast.makeText(editProduct.this, "Something wrong",
                                 Toast.LENGTH_SHORT).show();
                     }
-
                 }
-
-
             }
         });
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

@@ -12,7 +12,6 @@ import androidx.appcompat.widget.Toolbar;
 
 public class viewProduct extends AppCompatActivity {
     static TextView showID;
-    Button closeButton;
     Button editButton;
     static RatingBar ratingBar;
     static TextView productName;
@@ -27,7 +26,6 @@ public class viewProduct extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_product);
-        closeButton = findViewById(R.id.closeButton);
         editButton = findViewById(R.id.editButton);
         dateAdded = findViewById(R.id.dateAdded);
 
@@ -38,7 +36,8 @@ public class viewProduct extends AppCompatActivity {
         myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
 
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         id = "Product ID: "+databaseSetup.getProductCode().trim();
         id_send = databaseSetup.getProductCode().trim();
@@ -55,26 +54,19 @@ public class viewProduct extends AppCompatActivity {
 
         ratingBar.setIsIndicator(true);
 
-        closeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                viewProduct.this.finish();
-
-            }
-        });
-
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 startActivity(new Intent(getApplicationContext(), editProduct.class));
-                viewProduct.this.finish();
-
             }
         });
 
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
 

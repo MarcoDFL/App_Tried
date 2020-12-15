@@ -17,6 +17,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 public class createProduct extends AppCompatActivity {
 
@@ -39,10 +40,10 @@ public class createProduct extends AppCompatActivity {
         showID = findViewById(R.id.showID);
         createProduct.showID.setText(databaseSetup.getProductCode());
 
-        myToolbar = (Toolbar) findViewById(R.id.toolbar);
+        myToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 

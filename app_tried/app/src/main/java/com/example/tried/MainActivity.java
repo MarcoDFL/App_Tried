@@ -12,9 +12,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,7 +21,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.core.view.MenuItemCompat;
 
 import java.util.ArrayList;
 
@@ -31,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
 
     private final int CAMERA_PERMISSION_CODE = 1;
     private ListView itemView;
-    public ArrayList<String> items = new ArrayList<>();
     Toolbar myToolbar;
     databaseSetup db;
 
@@ -131,5 +127,12 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        setData();
+
     }
 }

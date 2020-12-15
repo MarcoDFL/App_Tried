@@ -12,6 +12,6 @@
     <item
         android:id="@+id/addItem"
         android:icon="@drawable/add_foreground"
-        android:title="@string/additem"
+        android:title="@string/addItem"
         app:showAsAction="ifRoom" />
 </menu>

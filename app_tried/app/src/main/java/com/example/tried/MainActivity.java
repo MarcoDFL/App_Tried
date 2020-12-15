@@ -27,7 +27,6 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private final int CAMERA_PERMISSION_CODE = 1;
-    private ListView itemView;
     Toolbar myToolbar;
     databaseSetup db;
 
@@ -41,19 +40,6 @@ public class MainActivity extends AppCompatActivity {
         db = com.example.tried.databaseSetup.getInstance(this);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
 
-        itemView = findViewById(R.id.itemListView);
-        setData();
-
-        itemView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String text = itemView.getItemAtPosition(position).toString();
-                String code = databaseSetup.getCodeFromName(text);
-
-                databaseSetup.setProductCode(code);
-                startActivity(new Intent(getApplicationContext(), viewProduct.class));
-            }
-        });
     }
 
     public static boolean doesContain(ArrayList<String> products, String productID) {
@@ -115,24 +101,5 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(), searchForItem.class));
         }
         return true;
-    }
-
-    private void setData() {
-        try {
-            db.getReadableDatabase();
-            ArrayList<String> items = databaseSetup.getAllProductNames();
-            ArrayAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items);
-            itemView.setAdapter(adapter);
-            adapter.notifyDataSetChanged();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        setData();
-
     }
 }

@@ -36,36 +36,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0dec2872-ef5e-49c9-b011-a5ae1204bc5e" name="Default Changelist" comment="fixup! Fixed gradle errors causing program not to run.">
-      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/ic_search_black_24dp.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/res/menu/search.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tried/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tried/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tried/createProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tried/createProduct.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tried/editProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tried/editProduct.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tried/searchForItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tried/searchForItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/drawable/ic_search_background.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/res/layout-v21/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout-v21/activity_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_new_product.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_new_product.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_view_product.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_view_product.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/res/layout/search_item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/search_item.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/menu/back_menu.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/menu/options.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/menu/options.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/mipmap-anydpi-v26/ic_search.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/mipmap-anydpi-v26/ic_search_round.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/mipmap-hdpi/ic_search.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/mipmap-hdpi/ic_search_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/mipmap-mdpi/ic_search.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/mipmap-mdpi/ic_search_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/mipmap-xhdpi/ic_search.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/mipmap-xhdpi/ic_search_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/mipmap-xxhdpi/ic_search.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/mipmap-xxhdpi/ic_search_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/mipmap-xxxhdpi/ic_search.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/mipmap-xxxhdpi/ic_search_round.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/values/addButton_background.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values/addButton_background.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values/colors.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/values/styles.xml" afterDir="false" />
     </list>
     <list id="2377bcf8-abb2-4134-9c40-fc2fc641eb92" name="testing" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -288,10 +263,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="765" y="229" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1601651324328" />
-    <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1607081831558">
+    <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1608008181099">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1607081831558" />
+    <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1608008181099" />
     <state x="690" y="266" key="#com.intellij.refactoring.typeMigration.ui.FailedConversionsDialog" timestamp="1607082736780">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -332,22 +307,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="653" y="433" key="GitRewordDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1607022408440" />
-    <state width="1319" height="287" key="GridCell.Tab.0.bottom" timestamp="1608004790111">
+    <state width="1877" height="283" key="GridCell.Tab.0.bottom" timestamp="1608008062805">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1319" height="287" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1608004790111" />
-    <state width="1319" height="287" key="GridCell.Tab.0.center" timestamp="1608004790111">
+    <state width="1877" height="283" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1608008062805" />
+    <state width="1877" height="283" key="GridCell.Tab.0.center" timestamp="1608008062804">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1319" height="287" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1608004790111" />
-    <state width="1319" height="287" key="GridCell.Tab.0.left" timestamp="1608004790111">
+    <state width="1877" height="283" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1608008062804" />
+    <state width="1877" height="283" key="GridCell.Tab.0.left" timestamp="1608008062804">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1319" height="287" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1608004790111" />
-    <state width="1319" height="287" key="GridCell.Tab.0.right" timestamp="1608004790111">
+    <state width="1877" height="283" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1608008062804" />
+    <state width="1877" height="283" key="GridCell.Tab.0.right" timestamp="1608008062805">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1319" height="287" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1608004790111" />
+    <state width="1877" height="283" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1608008062805" />
     <state width="1319" height="296" key="GridCell.Tab.1.bottom" timestamp="1607901907867">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

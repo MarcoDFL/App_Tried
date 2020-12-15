@@ -1,14 +1,18 @@
 package com.example.tried;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +28,7 @@ public class searchForItem extends AppCompatActivity {
     ListView searchItemView;
     ArrayList<String> items = new ArrayList<>();
     databaseSetup db;
+    TextView textView2;
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +37,7 @@ public class searchForItem extends AppCompatActivity {
         searchToolbar = findViewById(R.id.searchToolbar);
         setSupportActionBar(searchToolbar);
         searchItemView = findViewById(R.id.searchItemView);
+        textView2 = findViewById(R.id.textView2);
 
         db = com.example.tried.databaseSetup.getInstance(this);
         setData();
@@ -41,6 +47,17 @@ public class searchForItem extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+
+        searchItemView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String text = searchItemView.getItemAtPosition(position).toString();
+                String code = databaseSetup.getCodeFromName(text);
+
+                databaseSetup.setProductCode(code);
+                startActivity(new Intent(getApplicationContext(), viewProduct.class));
+            }
+        });
 
     }
 
@@ -94,8 +111,17 @@ public class searchForItem extends AppCompatActivity {
                         android.R.layout.simple_list_item_1, itemsList);
                 searchItemView.setAdapter(adapter);
 
+                if(adapter.isEmpty()){
+                    textView2.setText("NO ITEM FOUND!");
+                }
+                else{
+                    textView2.setText("");
+                }
+
                 return true;
             }
+
+
         });
         return true;
     }

@@ -5,6 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="412dp"
+        android:layout_height="43dp"
+        android:textColor="#FF0000"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchToolbar" />
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/searchToolbar"
         android:layout_width="match_parent"
@@ -18,12 +28,15 @@
 
     <ListView
         android:id="@+id/searchItemView"
-        android:layout_width="415dp"
-        android:layout_height="670dp"
+        android:layout_width="406dp"
+        android:layout_height="677dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchToolbar"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0">
+
+    </ListView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

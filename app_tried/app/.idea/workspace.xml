@@ -36,11 +36,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0dec2872-ef5e-49c9-b011-a5ae1204bc5e" name="Default Changelist" comment="fixup! Fixed gradle errors causing program not to run.">
+      <change afterPath="$PROJECT_DIR$/src/main/addPicture-playstore.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/addpic-playstore.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/addpic_background.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/drawable/addpic_foreground.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/mipmap-anydpi-v26/addpic.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/mipmap-anydpi-v26/addpic_round.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/mipmap-hdpi/addpic.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/mipmap-hdpi/addpic_round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/mipmap-mdpi/addpic.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/mipmap-mdpi/addpic_round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/mipmap-xhdpi/addpic.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/mipmap-xhdpi/addpic_round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/mipmap-xxhdpi/addpic.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/mipmap-xxhdpi/addpic_round.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/mipmap-xxxhdpi/addpic.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/res/mipmap-xxxhdpi/addpic_round.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tried/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tried/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tried/searchForItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tried/searchForItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout-v21/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout-v21/activity_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/res/layout/search_item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/search_item.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tried/createProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tried/createProduct.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tried/databaseSetup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tried/databaseSetup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tried/editProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tried/editProduct.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tried/viewProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tried/viewProduct.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_new_product.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_new_product.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/res/layout/activity_view_product.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/res/layout/activity_view_product.xml" afterDir="false" />
     </list>
     <list id="2377bcf8-abb2-4134-9c40-fc2fc641eb92" name="testing" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -87,7 +107,9 @@
     <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="ProjectId" id="1iARISla4wl1dTXA8AjeC1snId3" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -271,10 +293,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="266" key="#com.intellij.refactoring.typeMigration.ui.FailedConversionsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1607082736780" />
-    <state x="718" y="372" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1607987313709">
+    <state x="718" y="372" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1608241000554">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="718" y="372" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1920.1040@0.0.1920.1040" timestamp="1607987313709" />
+    <state x="718" y="372" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1920.1040@0.0.1920.1040" timestamp="1608241000554" />
     <state x="60" y="278" key="AndroidCreateResourceDirectoryDialog" timestamp="1601722268268">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -307,38 +329,38 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="653" y="433" key="GitRewordDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1607022408440" />
-    <state width="1877" height="283" key="GridCell.Tab.0.bottom" timestamp="1608008062805">
+    <state width="1877" height="283" key="GridCell.Tab.0.bottom" timestamp="1608240285364">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="283" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1608008062805" />
-    <state width="1877" height="283" key="GridCell.Tab.0.center" timestamp="1608008062804">
+    <state width="1877" height="283" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1608240285364" />
+    <state width="1877" height="283" key="GridCell.Tab.0.center" timestamp="1608240285363">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="283" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1608008062804" />
-    <state width="1877" height="283" key="GridCell.Tab.0.left" timestamp="1608008062804">
+    <state width="1877" height="283" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1608240285363" />
+    <state width="1877" height="283" key="GridCell.Tab.0.left" timestamp="1608240285363">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="283" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1608008062804" />
-    <state width="1877" height="283" key="GridCell.Tab.0.right" timestamp="1608008062805">
+    <state width="1877" height="283" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1608240285363" />
+    <state width="1877" height="283" key="GridCell.Tab.0.right" timestamp="1608240285363">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="283" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1608008062805" />
-    <state width="1319" height="296" key="GridCell.Tab.1.bottom" timestamp="1607901907867">
+    <state width="1877" height="283" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1608240285363" />
+    <state width="1877" height="298" key="GridCell.Tab.1.bottom" timestamp="1608231171750">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1319" height="296" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1607901907867" />
-    <state width="1319" height="296" key="GridCell.Tab.1.center" timestamp="1607901907867">
+    <state width="1877" height="298" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1608231171750" />
+    <state width="1877" height="298" key="GridCell.Tab.1.center" timestamp="1608231171749">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1319" height="296" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1607901907867" />
-    <state width="1319" height="296" key="GridCell.Tab.1.left" timestamp="1607901907867">
+    <state width="1877" height="298" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1608231171749" />
+    <state width="1877" height="298" key="GridCell.Tab.1.left" timestamp="1608231171749">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1319" height="296" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1607901907867" />
-    <state width="1319" height="296" key="GridCell.Tab.1.right" timestamp="1607901907867">
+    <state width="1877" height="298" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1608231171749" />
+    <state width="1877" height="298" key="GridCell.Tab.1.right" timestamp="1608231171750">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1319" height="296" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1607901907867" />
+    <state width="1877" height="298" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1608231171750" />
     <state x="0" y="86" key="MergeDialog" timestamp="1607022658473">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -375,6 +397,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="663" y="323" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1601422014434" />
+    <state x="666" y="267" key="refactoring.ChangeSignatureDialog" timestamp="1608239711465">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="666" y="267" key="refactoring.ChangeSignatureDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1608239711465" />
     <state x="616" y="240" key="run.anything.popup" timestamp="1601519221812">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

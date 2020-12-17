@@ -6,7 +6,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Bitmap;
+import android.widget.ImageView;
 
+import java.sql.Blob;
 import java.util.ArrayList;
 
 
@@ -16,6 +19,7 @@ public class databaseSetup extends SQLiteOpenHelper {
     @SuppressLint("StaticFieldLeak")
     private static databaseSetup instance;
     private static String productCode;
+    private static Bitmap productImage;
 
     private static final int DATABASE_VER = 1;
     private static final String DATABASE_NAME = "productDB.db";
@@ -30,9 +34,11 @@ public class databaseSetup extends SQLiteOpenHelper {
 
     private static final String COLUMN_DATE = "DATE";
 
+    private static final String COLUMN_IMAGE = "IMAGES";
+
 
     private static final String SQL_CREATE_TABLE_QUERY = "CREATE TABLE " + TABLE_PRODUCTS +
-            " (" + COLUMN_CODE + " TEXT PRIMARY KEY, " + " " + COLUMN_NAME + " TEXT, " + COLUMN_RATING + " TEXT, " + COLUMN_DATE + " TEXT)";
+            " (" + COLUMN_CODE + " TEXT PRIMARY KEY, " + " " + COLUMN_NAME + " TEXT, " + COLUMN_RATING + " TEXT, " + COLUMN_DATE + " TEXT, " + COLUMN_IMAGE + " BLOB)";
 
     private static final String SQL_DELETE_TABLE_QUERY =
             "DROP TABLE IF EXISTS " + TABLE_PRODUCTS;
@@ -78,6 +84,14 @@ public class databaseSetup extends SQLiteOpenHelper {
         }
     }
 
+    public static void setProductImage(Bitmap bm){
+        productImage = bm;
+    }
+
+    public static Bitmap getProductImage() {
+        return productImage;
+    }
+
     @Override
     public void onCreate(SQLiteDatabase SQLiteDatabase) {
         SQLiteDatabase.execSQL(SQL_CREATE_TABLE_QUERY);
@@ -90,7 +104,7 @@ public class databaseSetup extends SQLiteOpenHelper {
 
     }
 
-    public static void insertNewProduct(String productCode, String productName, float productRating, String formattedDate) {
+    public static void insertNewProduct(String productCode, String productName, float productRating, String formattedDate, byte[] imageDisplay) {
         SQLiteDatabase db = instance.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -100,13 +114,14 @@ public class databaseSetup extends SQLiteOpenHelper {
             values.put(COLUMN_NAME, productName);
             values.put(COLUMN_RATING, productRating);
             values.put(COLUMN_DATE, formattedDate);
+            values.put(COLUMN_IMAGE, imageDisplay);
             db.insert(TABLE_PRODUCTS, null, values);
             db.close();
         }
     }
 
     @SuppressWarnings("SameReturnValue")
-    public static boolean editProduct(String productCode, String productName, float productRating) {
+    public static boolean editProduct(String productCode, String productName, float productRating, byte[] imageDisplay) {
         SQLiteDatabase db = instance.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -114,6 +129,8 @@ public class databaseSetup extends SQLiteOpenHelper {
         values.put(COLUMN_CODE, productCode);
         values.put(COLUMN_NAME, productName);
         values.put(COLUMN_RATING, productRating);
+        values.put(COLUMN_IMAGE, imageDisplay);
+
         db.update(TABLE_PRODUCTS, values, "CODE = ?", new String[]{productCode});
         return true;
     }

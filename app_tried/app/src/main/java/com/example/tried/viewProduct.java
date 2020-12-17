@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -20,6 +21,7 @@ public class viewProduct extends AppCompatActivity {
     static RatingBar ratingBar;
     static TextView productName;
     static TextView dateAdded;
+    static ImageView imageView;
     static String name;
     static String date;
     static String id;
@@ -33,7 +35,7 @@ public class viewProduct extends AppCompatActivity {
         setContentView(R.layout.activity_view_product);
         editButton = findViewById(R.id.editButton);
         dateAdded = findViewById(R.id.dateAdded);
-
+        imageView = findViewById(R.id.ImageView);
         ratingBar = findViewById(R.id.ratingBar);
         productName = findViewById(R.id.productName);
         showID = findViewById(R.id.showID);
@@ -47,6 +49,7 @@ public class viewProduct extends AppCompatActivity {
         id = "Product ID: "+databaseSetup.getProductCode().trim();
         id_send = databaseSetup.getProductCode().trim();
         showID.setText(id);
+        imageView.setImageBitmap(databaseSetup.getProductImage());
 
         String productCode = databaseSetup.getProductCode().trim();
         name = "Product Name: "+databaseSetup.getProductName(productCode);

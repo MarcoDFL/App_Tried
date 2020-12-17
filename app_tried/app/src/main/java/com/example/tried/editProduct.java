@@ -1,15 +1,21 @@
 package com.example.tried;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import java.io.ByteArrayOutputStream;
 import java.util.Objects;
 
 public class editProduct extends AppCompatActivity {
@@ -20,7 +26,9 @@ public class editProduct extends AppCompatActivity {
     EditText productName;
     TextView productDate;
     Toolbar myToolbar;
+    ImageView imageView;
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +38,7 @@ public class editProduct extends AppCompatActivity {
         productName = findViewById(R.id.productName);
         showID = findViewById(R.id.showID);
         productDate = findViewById(R.id.dateAdded);
-
+        imageView = findViewById(R.id.imageDisplay);
         myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -41,6 +49,14 @@ public class editProduct extends AppCompatActivity {
         productName.setText(databaseSetup.getProductName(viewProduct.id_send));
         showID.setText(viewProduct.id);
         productDate.setText(viewProduct.date);
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+
+        BitmapDrawable bitmapDrawable = (BitmapDrawable) viewProduct.imageView.getDrawable();
+        final Bitmap bitmap = bitmapDrawable.getBitmap();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, bos);
+
+        imageView.setImageBitmap(bitmap);
+        final byte[] bArray = bos.toByteArray();
 
         submit.setOnClickListener(new View.OnClickListener() {
 
@@ -53,7 +69,7 @@ public class editProduct extends AppCompatActivity {
                 else{
                     try {
                         boolean isUpdated = databaseSetup.editProduct(databaseSetup.getProductCode(), productName
-                                .getText().toString(), ratingBar.getRating());
+                                .getText().toString(), ratingBar.getRating(), bArray);
 
                         if(isUpdated){
                             Toast.makeText(editProduct.this, "Product Updated", Toast.LENGTH_SHORT).show();

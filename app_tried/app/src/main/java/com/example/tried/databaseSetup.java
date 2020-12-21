@@ -7,10 +7,13 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
-import android.widget.ImageView;
+import android.graphics.BitmapFactory;
 
-import java.sql.Blob;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collection;
 
 
 @SuppressWarnings("SameReturnValue")
@@ -91,6 +94,7 @@ public class databaseSetup extends SQLiteOpenHelper {
     public static Bitmap getProductImage() {
         return productImage;
     }
+
 
     @Override
     public void onCreate(SQLiteDatabase SQLiteDatabase) {
@@ -259,4 +263,27 @@ public class databaseSetup extends SQLiteOpenHelper {
         db.close();
         return productNames;
     }
+    
+    public static ArrayList<Bitmap> getAllImages(){
+        ArrayList<Bitmap> images = new ArrayList<>();
+        byte[] dbImages = new byte[0];
+
+        SQLiteDatabase db = instance.getReadableDatabase();
+
+        @SuppressLint("Recycle") Cursor dbCursor = db.query(TABLE_PRODUCTS, null,
+                null, null, null, null, null);
+
+        dbCursor.moveToFirst();
+        while (!dbCursor.isAfterLast()) {
+            dbImages = dbCursor.getBlob(dbCursor.getColumnIndex(COLUMN_IMAGE));
+
+            ByteArrayInputStream bis = new ByteArrayInputStream(dbImages);
+            Bitmap bitmap = BitmapFactory.decodeStream(bis);
+            images.add(bitmap);
+
+            dbCursor.moveToNext();
+        }
+        return images;
+    }
+
 }

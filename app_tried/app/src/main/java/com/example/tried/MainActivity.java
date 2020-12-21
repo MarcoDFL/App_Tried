@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -12,7 +14,10 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,6 +26,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
@@ -29,16 +36,38 @@ public class MainActivity extends AppCompatActivity {
     private final int CAMERA_PERMISSION_CODE = 1;
     Toolbar myToolbar;
     databaseSetup db;
+    ImageView imageView;
+    TextView textView;
+    LinearLayout linearLayout;
+    private ArrayList<String> labels;
+    private ArrayList<byte[]> images;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        imageView = findViewById(R.id.imageDisplayer);
+        textView = findViewById(R.id.productNameDisplay);
+        linearLayout = findViewById(R.id.linearLayout);
+
         myToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
 
         db = com.example.tried.databaseSetup.getInstance(this);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
+
+        LinearLayoutManager layoutManager
+                = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+
+
+        RecyclerView rvSlide = findViewById(R.id.recentlyRecycle);
+        rvSlide.setLayoutManager(layoutManager);
+
+        labels = databaseSetup.getAllProductNames();
+        ArrayList<Bitmap> images = new ArrayList<>(databaseSetup.getAllImages());
+
+        RecyclerView.Adapter adapter = new MyAdapter(MainActivity.this, labels, images);
+        rvSlide.setAdapter(adapter);
 
     }
 
